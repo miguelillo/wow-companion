@@ -1,0 +1,13 @@
+# Local development: ports exposed directly so you can hit each service on its own,
+# without going through the proxy. Compose reads this file automatically.
+services:
+  api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      AllowedOrigins: http://localhost:4321,http://localhost:8080
+    ports:
+      - '5080:8080'
+
+  postgres:
+    ports:
+      - '5432:5432'

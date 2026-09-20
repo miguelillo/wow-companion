@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localizePath, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${t('error.404.title')} · ${t('site.name')}`}
+  description={t('error.404.body')}
+  noindex={true}
+>
+  <div class="stack prose">
+    <h1>{t('error.404.title')}</h1>
+    <p>{t('error.404.body')}</p>
+    <p>
+      <a href={localizePath(locale)}>{t('pending.back')}</a>
+    </p>
+  </div>
+</BaseLayout>

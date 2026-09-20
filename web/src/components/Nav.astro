@@ -1,0 +1,75 @@
+---
+import { navSections, sectionPath, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const current = Astro.url.pathname.replace(/\/$/, '');
+
+const items = navSections.map((section) => {
+  const path = sectionPath(section, locale);
+  return {
+    section,
+    path,
+    label: t(`nav.${section}`),
+    active: current === path || current.startsWith(`${path}/`),
+  };
+});
+---
+
+<nav aria-label={t('a11y.mainNav')}>
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={item.path} aria-current={item.active ? 'page' : undefined}>
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  nav {
+    /* Mobile first: one scrollable row, no menu button and no JavaScript. */
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  a {
+    display: inline-block;
+    padding-block: var(--space-2);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-block-end: 2px solid transparent;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  a[aria-current='page'] {
+    color: var(--text);
+    border-block-end-color: var(--verd);
+  }
+</style>

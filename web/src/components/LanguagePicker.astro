@@ -1,0 +1,62 @@
+---
+import { localeNames, locales, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** Path of this page per language. A missing entry means the translation is not written. */
+  alternates: Partial<Record<Locale, string>>;
+}
+
+const { locale, alternates } = Astro.props;
+const t = useTranslations(locale);
+const others = locales.filter((candidate) => candidate !== locale);
+---
+
+<nav class="lang" aria-label={t('lang.label')}>
+  {others.map((other) => {
+    const path = alternates[other];
+    const missing = path === undefined;
+    const language = localeNames[other];
+    return (
+      <a
+        href={missing ? (other === 'es' ? '/' : `/${other}`) : path}
+        hreflang={other}
+        lang={other}
+        title={missing ? t('lang.missing', { language }) : t('lang.switch', { language })}
+        data-missing={missing ? 'true' : 'false'}
+      >
+        {other.toUpperCase()}
+        <span class="visually-hidden">{language}</span>
+      </a>
+    );
+  })}
+</nav>
+
+<style>
+  .lang {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    height: 2.25rem;
+    padding-inline: var(--space-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+  }
+
+  a:hover {
+    background: var(--panel-raised);
+    color: var(--text);
+  }
+
+  a[data-missing='true'] {
+    border-style: dashed;
+  }
+</style>

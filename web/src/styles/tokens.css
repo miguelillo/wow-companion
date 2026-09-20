@@ -1,0 +1,82 @@
+/* Design tokens. The palette comes from a validated prototype: do not drift from it. */
+:root {
+  color-scheme: light;
+
+  --bg: #ede9de;
+  --panel: #f8f5ec;
+  --line: #d5cfbd;
+  --text: #1f2522;
+  --muted: #5e665e;
+  --verd: #2d6b58;
+  --gold: #8a6a1e;
+  --ember: #8e3f2b;
+
+  /* Derived surfaces, kept as tokens so light and dark stay in step. */
+  --panel-raised: #fffdf7;
+  --shadow: 0 1px 2px rgb(31 37 34 / 8%);
+  /* --gold as small text falls just short of 4.5:1 on the light background, so text that
+     has to be gold uses this slightly darker shade. Non-text gold stays --gold. */
+  --gold-ink: #7e6018;
+
+  --font-display: 'Marcellus', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Karla', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.4375rem;
+  --step-3: 1.75rem;
+  --step-4: 2.125rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+
+  /* Text lines stay under 70 characters. */
+  --measure: 66ch;
+  --content-width: 68rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --bg: #101614;
+    --panel: #18211d;
+    --line: #28332d;
+    --text: #e7e3d6;
+    --muted: #98a59b;
+    --verd: #63ac91;
+    --gold: #d8b264;
+    --ember: #c4705a;
+
+    --panel-raised: #1f2a25;
+    --shadow: 0 1px 2px rgb(0 0 0 / 40%);
+    --gold-ink: var(--gold);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #101614;
+  --panel: #18211d;
+  --line: #28332d;
+  --text: #e7e3d6;
+  --muted: #98a59b;
+  --verd: #63ac91;
+  --gold: #d8b264;
+  --ember: #c4705a;
+
+  --panel-raised: #1f2a25;
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%);
+  --gold-ink: var(--gold);
+}

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localizePath, sectionAlternates, useTranslations, type Locale } from '../i18n';
+import type { Section } from '../i18n/routes';
+
+interface Props {
+  locale: Locale;
+  section: Section;
+}
+
+const { locale, section } = Astro.props;
+const t = useTranslations(locale);
+const label = t(`nav.${section}`);
+const title = `${label} · ${t('site.name')}`;
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={`${label}. ${t('pending.lead')} ${t('pending.eta')}`}
+  alternates={sectionAlternates(section)}
+  noindex={true}
+>
+  <div class="stack prose">
+    <p>
+      <span class="badge">{t('pending.badge')}</span>
+    </p>
+    <h1>{label}</h1>
+    <p>{t('pending.lead')}</p>
+    <p class="muted">{t('pending.eta')}</p>
+    <p>
+      <a href={localizePath(locale)}>{t('pending.back')}</a>
+    </p>
+  </div>
+</BaseLayout>
