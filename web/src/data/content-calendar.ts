@@ -23,8 +23,8 @@ export const contentCalendar: readonly ContentCalendarEntry[] = [
     key: 'beta',
     name: { es: 'Beta abierta', en: 'Open beta' },
     detail: {
-      es: 'Incluida con las ediciones Skyborne y por oleadas de invitaciones.',
-      en: 'Included with the Skyborne editions and rolled out in invite waves.',
+      es: 'Incluida con el Skyborne Epic Pack y superiores; el Heroic no la trae.',
+      en: 'Included with the Skyborne Epic Pack and above; the Heroic pack does not carry it.',
     },
     opensAt: gameDates.betaStart,
     confirmed: true,
