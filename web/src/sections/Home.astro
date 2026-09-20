@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Countdown from '../components/Countdown.astro';
+import NextStepsSlot from '../components/NextStepsSlot.astro';
+import OpenContentCard from '../components/OpenContentCard.astro';
+import PatchCard from '../components/PatchCard.astro';
+import RealmStatusCard from '../components/RealmStatusCard.astro';
+import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import { getPatches } from '../lib/collections';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const patches = await getPatches(locale, 3);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('home.meta.title')}
+  description={t('home.meta.description')}
+  alternates={sectionAlternates('home')}
+>
+  <div class="stack-lg">
+    <section class="hero">
+      <h1>{t('home.hero.title')}</h1>
+      <p class="lead">{t('home.hero.body')}</p>
+    </section>
+
+    <!-- First layer: the state of the game, the same for everybody. -->
+    <div class="pulse">
+      <section aria-labelledby="news-title">
+        <div class="section-title">
+          <h2 id="news-title">{t('home.news.title')}</h2>
+          <a class="small" href={sectionPath('patches', locale)}>
+            {t('home.news.all')}
+          </a>
+        </div>
+        {patches.length === 0 ? (
+          <p class="muted">{t('home.news.empty')}</p>
+        ) : (
+          <div class="stack">
+            {patches.map((entry) => (
+              <PatchCard locale={locale} entry={entry} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <div class="stack aside">
+        <Countdown locale={locale} />
+        <RealmStatusCard locale={locale} />
+        <OpenContentCard locale={locale} />
+      </div>
+    </div>
+
+    <!-- Second layer: what this reader should do next. -->
+    <NextStepsSlot locale={locale} />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero h1 {
+    max-width: 24ch;
+  }
+
+  .lead {
+    max-width: var(--measure);
+    margin-block-start: var(--space-3);
+    font-size: var(--step-1);
+    color: var(--muted);
+  }
+
+  .pulse {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 60rem) {
+    .pulse {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

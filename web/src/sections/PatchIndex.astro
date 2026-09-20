@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PatchCard from '../components/PatchCard.astro';
+import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import { getPatches } from '../lib/collections';
+import { breadcrumbSchema } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const patches = await getPatches(locale);
+const rssPath = locale === 'es' ? '/parches/rss.xml' : '/en/patches/rss.xml';
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.patches'), path: sectionPath('patches', locale) },
+    ],
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('patches.meta.title')}
+  description={t('patches.meta.description')}
+  alternates={sectionAlternates('patches')}
+  jsonLd={jsonLd}
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <h1>{t('patches.title')}</h1>
+      <p class="muted lead">{t('patches.lead')}</p>
+      <p class="small">
+        <a href={rssPath}>{t('patches.rss')}</a>
+      </p>
+    </header>
+
+    {patches.length === 0 ? (
+      <p class="muted">{t('patches.empty')}</p>
+    ) : (
+      <div class="stack">
+        {patches.map((entry) => (
+          <PatchCard locale={locale} entry={entry} headingLevel="h2" />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** Renders nothing when the information is confirmed. */
+  confirmed: boolean;
+}
+
+const { locale, confirmed } = Astro.props;
+const t = useTranslations(locale);
+---
+
+{!confirmed && (
+  <span class="badge badge-beta" title={t('beta.notice')}>
+    {t('beta.badge')}
+  </span>
+)}

@@ -1,0 +1,118 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+import { sectionPath } from '../i18n/routes';
+
+interface Props {
+  locale: Locale;
+  /** How many realms to list before linking to the status page. */
+  limit?: number;
+}
+
+const { locale, limit = 6 } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section
+  class="panel"
+  aria-labelledby="realms-title"
+  data-realm-status
+  data-limit={String(limit)}
+  data-locale={locale}
+  data-label-online={t('home.realms.online')}
+  data-label-offline={t('home.realms.offline')}
+  data-label-queue={t('home.realms.queue')}
+  data-label-no-queue={t('home.realms.noQueue')}
+  data-label-population={t('home.realms.population')}
+  data-label-updated={t('home.realms.updated', { time: '{time}' })}
+  data-label-unavailable={t('home.realms.unavailable')}
+>
+  <h2 id="realms-title">{t('home.realms.title')}</h2>
+  <!-- Rendered at build time, replaced once the live call answers. If it never answers,
+       the card says so: no broken hole, no error. -->
+  <p class="small muted" data-realm-message>
+    {t('home.realms.loading')}
+  </p>
+  <ul data-realm-list hidden></ul>
+  <p class="small">
+    <a href={sectionPath('status', locale)}>{t('home.realms.all')}</a>
+  </p>
+  <noscript>
+    <p class="small muted">{t('home.realms.unavailable')}</p>
+  </noscript>
+</section>
+
+<style>
+  h2 {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-3);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-3);
+  }
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
+  }
+
+  li + li {
+    border-block-start: 1px solid var(--line);
+  }
+</style>
+
+<script>
+  import { fetchRealmStatus } from '../lib/api-client';
+
+  const card = document.querySelector<HTMLElement>('[data-realm-status]');
+  const message = card?.querySelector<HTMLElement>('[data-realm-message]');
+  const list = card?.querySelector<HTMLUListElement>('[data-realm-list]');
+
+  function label(name: string): string {
+    return card?.dataset[name] ?? '';
+  }
+
+  async function render(): Promise<void> {
+    if (!card || !message || !list) return;
+    const status = await fetchRealmStatus();
+
+    if (status === null || status.realms.length === 0) {
+      message.textContent = label('labelUnavailable');
+      return;
+    }
+
+    const limit = Number(card.dataset['limit'] ?? '6');
+    const locale = card.dataset['locale'] === 'en' ? 'en-GB' : 'es-ES';
+    const time = new Intl.DateTimeFormat(locale, { timeStyle: 'short' }).format(
+      new Date(status.updatedAt),
+    );
+
+    list.replaceChildren(
+      ...status.realms.slice(0, limit).map((realm) => {
+        const item = document.createElement('li');
+        const name = document.createElement('span');
+        name.textContent = realm.name;
+
+        const state = document.createElement('span');
+        state.className = realm.online ? 'badge badge-open' : 'badge';
+        const parts = [realm.online ? label('labelOnline') : label('labelOffline')];
+        if (realm.population !== null) parts.push(realm.population);
+        parts.push(realm.hasQueue ? label('labelQueue') : label('labelNoQueue'));
+        state.textContent = parts.join(' · ');
+
+        item.append(name, state);
+        return item;
+      }),
+    );
+
+    list.hidden = false;
+    message.textContent = label('labelUpdated').replace('{time}', time);
+  }
+
+  void render();
+</script>
