@@ -1,0 +1,35 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const repository = 'https://github.com/miguelillo/wow-companion';
+---
+
+<footer>
+  <div class="wrap stack">
+    <p class="small muted">{t('footer.sources')}</p>
+    <p class="small muted disclaimer">{t('footer.disclaimer')}</p>
+    <p class="small">
+      <a href={repository} rel="noopener">
+        {t('footer.repo')}
+      </a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-block-start: 1px solid var(--line);
+    background: var(--panel);
+    padding-block: var(--space-5) var(--space-6);
+  }
+
+  .disclaimer {
+    max-width: var(--measure);
+  }
+</style>
