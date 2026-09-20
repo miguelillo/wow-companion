@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" width="420" height="96" role="img"
+     aria-label="WoW Companion — guías y progreso para World of Warcraft: Forever">
+  <title>WoW Companion</title>
+  <style>
+    .name { font: 400 38px Marcellus, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif; fill: #1F2522; }
+    .tag { font: 400 15px Karla, 'Segoe UI', system-ui, Arial, sans-serif; fill: #5E665E; }
+    @media (prefers-color-scheme: dark) {
+      .name { fill: #E7E3D6; }
+      .tag { fill: #98A59B; }
+    }
+  </style>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#37806a" />
+      <stop offset="1" stop-color="#22564a" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(4 16)">
+    <rect x="2" y="2" width="60" height="60" rx="13" fill="url(#field)" />
+    <rect x="5.5" y="5.5" width="53" height="53" rx="9.5" fill="none" stroke="#D8B264"
+          stroke-width="1" opacity="0.38" />
+    <path d="M16 21.5 L24 44 L32 28.5 L40 44 L43.5 29.5" fill="none" stroke="#EDE9DE" stroke-width="2.8"
+          stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5.4 3.6" opacity="0.92" />
+    <circle cx="16" cy="21.5" r="2.4" fill="#EDE9DE" opacity="0.5" />
+    <circle cx="24" cy="44" r="2.4" fill="#EDE9DE" opacity="0.5" />
+    <circle cx="32" cy="28.5" r="2.4" fill="#EDE9DE" opacity="0.5" />
+    <circle cx="40" cy="44" r="2.4" fill="#EDE9DE" opacity="0.5" />
+    <circle cx="48" cy="20.5" r="6" fill="none" stroke="#D8B264" stroke-width="2.6" />
+    <circle cx="48" cy="20.5" r="2.3" fill="#D8B264" />
+  </g>
+  <text class="name" x="86" y="49">WoW Companion</text>
+  <text class="tag" x="88" y="70">Guías y progreso para World of Warcraft: Forever</text>
+</svg>

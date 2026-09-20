@@ -65,9 +65,13 @@ const rssPath = locale === 'es' ? '/parches/rss.xml' : '/en/patches/rss.xml';
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={t('site.name')} />
     <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_GB'} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={absoluteUrl('/og-default.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t('site.tagline')} />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/logo-mark-compact.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={t('patches.title')} href={rssPath} />
     <meta name="color-scheme" content="light dark" />

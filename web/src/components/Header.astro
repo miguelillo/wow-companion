@@ -16,8 +16,11 @@ const t = useTranslations(locale);
 <header>
   <div class="wrap top">
     <a class="brand" href={localizePath(locale)}>
-      <span class="name">{t('site.name')}</span>
-      <span class="tagline small muted">{t('site.tagline')}</span>
+      <img src="/logo-mark-compact.svg" width="40" height="40" alt="" />
+      <span class="words">
+        <span class="name">{t('site.name')}</span>
+        <span class="tagline small muted">{t('site.tagline')}</span>
+      </span>
     </a>
     <div class="controls">
       <LanguagePicker locale={locale} alternates={alternates} />
@@ -44,9 +47,20 @@ const t = useTranslations(locale);
   }
 
   .brand {
-    display: grid;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
     text-decoration: none;
     color: var(--text);
+  }
+
+  .brand img {
+    flex: none;
+    border-radius: 8px;
+  }
+
+  .words {
+    display: grid;
   }
 
   .name {

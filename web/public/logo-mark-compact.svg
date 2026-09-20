@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img"
+     aria-label="WoW Companion">
+  <title>WoW Companion</title>
+  <!-- Compact variant: no gradient, no inner rule, heavier strokes, so the route still
+       reads at 16 to 40 pixels. Used for the browser icon and the site header. -->
+  <rect width="64" height="64" rx="12" fill="#2D6B58" />
+  <path d="M15 21 L24 45 L32 28 L40 45 L44 30" fill="none" stroke="#EDE9DE" stroke-width="4"
+        stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5.5 5" />
+  <circle cx="47.5" cy="21" r="6.5" fill="none" stroke="#D8B264" stroke-width="4" />
+</svg>

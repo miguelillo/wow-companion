@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="web/public/og-default.png" alt="WoW Companion — guías y progreso para World of Warcraft: Forever" width="760">
+</p>
+
 # wow-companion
 
 Companion en español (y en inglés) para **World of Warcraft: Forever**, la tercera rama
@@ -11,6 +15,12 @@ progreso.
 
 > Web de fans, sin afiliación ni respaldo de Blizzard Entertainment. World of Warcraft y
 > Warcraft son marcas de Blizzard Entertainment, Inc.
+
+El logo es la ruta del jugador: una traza discontinua que pasa por los puntos ya hechos y
+apunta al siguiente, todavía sin alcanzar, dibujando una W. Los archivos están en
+`web/public/`: `logo-mark.svg` (marca cuadrada), `logo.svg` (marca y nombre),
+`logo-mark-compact.svg` (versión simplificada que sirve de icono del navegador y de
+marca en la cabecera) y `og-default.png`.
 
 ## Piezas
 
