@@ -16,11 +16,11 @@ progreso.
 > Web de fans, sin afiliación ni respaldo de Blizzard Entertainment. World of Warcraft y
 > Warcraft son marcas de Blizzard Entertainment, Inc.
 
-El logo es la ruta del jugador: una traza discontinua que pasa por los puntos ya hechos y
-apunta al siguiente, todavía sin alcanzar, dibujando una W. Los archivos están en
-`web/public/`: `logo-mark.svg` (marca cuadrada), `logo.svg` (marca y nombre),
-`logo-mark-compact.svg` (versión simplificada que sirve de icono del navegador y de
-marca en la cabecera) y `og-default.png`.
+El logo es una cresta forjada, y dentro está la ruta del jugador: una traza discontinua que
+pasa por los puntos ya hechos y apunta al siguiente, todavía sin alcanzar, dibujando una W.
+Los archivos están en `web/public/`: `logo-mark.svg` (la cresta completa, de 48 px para
+arriba), `logo-mark-compact.svg` (sin degradados y con la W maciza, para el icono del
+navegador y la cabecera), `logo.svg` (cresta y nombre) y `og-default.png` (imagen social).
 
 ## Piezas
 
