@@ -113,6 +113,8 @@ const es = {
 
   'progress.next.blocked': 'Te falta nivel o habilidad para esto.',
   'progress.next.remaining': 'Quedan {count}',
+  'progress.next.noneStarted':
+    'Todavía no has empezado ninguna profesión. Abre una y te voy diciendo qué toca.',
   'progress.next.go': 'Ir a la guía',
 
   'progress.transfer.title': 'Llevarte el progreso',
@@ -127,6 +129,44 @@ const es = {
   'progress.transfer.importFailed': 'Esa cadena no vale. Cópiala entera, empezando por WCP1.',
   'progress.transfer.mergeNote':
     'Importar no borra nada: se fusiona con lo que ya tienes y, si hay conflicto, gana lo marcado.',
+
+  'professions.meta.title': 'Profesiones de WoW Forever: las doce guías de 1 a 300',
+  'professions.meta.description':
+    'Las doce profesiones de World of Warcraft: Forever con su guía de subida de 1 a 300, las parejas recomendadas y qué cambia respecto a Classic.',
+  'professions.title': 'Profesiones',
+  'professions.lead':
+    'Doce profesiones, cada una con su ruta de 1 a 300 y marcable paso a paso. Elige dos principales y las tres secundarias, que no ocupan hueco.',
+  'professions.kind.gathering': 'Recolección',
+  'professions.kind.crafting': 'Producción',
+  'professions.kind.secondary': 'Secundarias',
+  'professions.pairs.title': 'Parejas que funcionan',
+  'professions.pairsWith': 'Va con',
+  'professions.whatChanged': 'Qué cambia en Forever',
+  'professions.sources': 'Fuentes',
+  'professions.ladder': 'La subida, paso a paso',
+  'professions.backToIndex': 'Todas las profesiones',
+
+  'planner.title': 'Planificador de profesiones',
+  'planner.lead': 'Dinos tu clase y qué buscas, y te decimos qué pareja coger y por qué.',
+  'planner.class': 'Clase',
+  'planner.goal': 'Qué buscas',
+  'planner.goal.gold': 'Hacer oro',
+  'planner.goal.self': 'Ser autosuficiente',
+  'planner.goal.raid': 'Preparar raids',
+  'planner.result': 'Coge',
+  'planner.and': 'y',
+  'planner.reason.gold':
+    'Dos recolecciones no cuestan nada y todo lo que saques se vende solo, porque lo necesitan los que fabrican. Es la forma más rápida de tener oro para la montura de 40. Cuando lo tengas, cambia Minería por Alquimia: los frascos y elixires de reputación nuevos son de las cosas que mejor se pagan.',
+  'planner.reason.cloth':
+    'La tela te la dan los humanoides que ya matas, así que Sastrería se alimenta sola, y en Forever además sueltas tela extra. Encantamiento se come lo que fabricas de más y te encanta tu propio equipo, que es lo caro de pagar a otro.',
+  'planner.reason.leather':
+    'Desuello te surte de lo que ya matas y Peletería te viste mientras subes, sin pasar por la casa de subastas. Es la pareja más barata de mantener de todas.',
+  'planner.reason.plate':
+    'Minería te da las barras y Herrería te hace el equipo. Además te quedas con reparar todo el equipo de golpe y con las hebillas de cinturón, que dan estadísticas a cualquiera: eso te hace hueco en cualquier grupo.',
+  'planner.reason.raid':
+    'Herboristería y Alquimia es lo que sostiene una raid: pociones, elixires y los frascos nuevos de poder de ataque. Te surtes tú y te sobra para vender. Si prefieres utilidad antes que consumibles, la alternativa es Minería con Ingeniería.',
+  'planner.note':
+    'Las secundarias (Cocina, Primeros auxilios y Pesca) no ocupan hueco: súbelas igualmente.',
 
   'patches.meta.title': 'Parches y novedades de World of Warcraft: Forever',
   'patches.meta.description':

@@ -41,7 +41,16 @@ export default function NextSteps({ locale, tracks, characterHref }: Props): Rea
   const next = computeNextSteps(character, tracks);
 
   if (next.length === 0) {
-    return <p className="muted">{t('progress.steps.allDone')}</p>;
+    const started = tracks.some(
+      (track) =>
+        track.ref.kind !== 'profession' ||
+        character.professions[track.ref.profession] !== undefined,
+    );
+    return (
+      <p className="muted">
+        {started ? t('progress.steps.allDone') : t('progress.next.noneStarted')}
+      </p>
+    );
   }
 
   return (

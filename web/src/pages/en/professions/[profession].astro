@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ProfessionDetail from '../../../sections/ProfessionDetail.astro';
+import { entryPath } from '../../../i18n';
+import { findTranslation, getLocalizedEntries } from '../../../lib/collections';
+
+export const getStaticPaths = (async () => {
+  const entries = await getLocalizedEntries('professions', 'en');
+
+  return Promise.all(
+    entries.map(async (entry) => {
+      const sibling = await findTranslation('professions', entry.data.translationKey, 'es');
+      return {
+        params: { profession: entry.data.slug },
+        props: {
+          entry,
+          alternates: {
+            en: entryPath('professions', entry.data.slug, 'en'),
+            ...(sibling === undefined
+              ? {}
+              : { es: entryPath('professions', sibling.data.slug, 'es') }),
+          },
+        },
+      };
+    }),
+  );
+}) satisfies GetStaticPaths;
+
+const { entry, alternates } = Astro.props;
+---
+
+<ProfessionDetail locale="en" entry={entry} alternates={alternates} />
