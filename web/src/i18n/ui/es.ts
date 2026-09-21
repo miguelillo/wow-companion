@@ -84,6 +84,50 @@ const es = {
   'status.realms.heading': 'Reinos',
   'status.source': 'Fuente: API de Blizzard, endpoints de realm y connected-realm.',
 
+  'progress.character.title': 'Tu personaje',
+  'progress.character.none': 'Todavía no has añadido ningún personaje.',
+  'progress.character.add': 'Añadir personaje',
+  'progress.character.name': 'Nombre',
+  'progress.character.realm': 'Reino',
+  'progress.character.class': 'Clase',
+  'progress.character.level': 'Nivel',
+  'progress.character.save': 'Guardar',
+  'progress.character.cancel': 'Cancelar',
+  'progress.character.remove': 'Quitar',
+  'progress.character.removeConfirm':
+    '¿Quitar a {name}? Su progreso desaparece de este navegador y no se puede deshacer.',
+  'progress.character.pick': 'Personaje activo',
+  'progress.storage.unavailable':
+    'Tu navegador no deja guardar datos, así que lo que marques durará sólo mientras esta pestaña siga abierta.',
+
+  'progress.steps.done': '{done} de {total} pasos',
+  'progress.steps.next': 'Siguiente paso',
+  'progress.steps.needCharacter': 'Añade un personaje y podrás ir marcando pasos.',
+  'progress.steps.materials': 'Materiales',
+  'progress.steps.skillLevel': 'Nivel de habilidad',
+  'progress.steps.characterLevel': 'Nivel del personaje',
+  'progress.steps.allDone': 'Guía completada. Bien hecho.',
+  'progress.steps.toggle': 'Marcar «{action}» como hecho',
+  'progress.steps.skillRange': 'Habilidad {from}–{to}',
+  'progress.steps.levelRange': 'Nivel {from}–{to}',
+
+  'progress.next.blocked': 'Te falta nivel o habilidad para esto.',
+  'progress.next.remaining': 'Quedan {count}',
+  'progress.next.go': 'Ir a la guía',
+
+  'progress.transfer.title': 'Llevarte el progreso',
+  'progress.transfer.lead':
+    'Genera una cadena, guárdala y pégala en otro navegador o dispositivo. No hace falta cuenta.',
+  'progress.transfer.export': 'Generar cadena',
+  'progress.transfer.copy': 'Copiar',
+  'progress.transfer.copied': 'Copiado',
+  'progress.transfer.import': 'Importar',
+  'progress.transfer.importLabel': 'Pega aquí tu cadena',
+  'progress.transfer.imported': 'Listo: tu progreso se ha fusionado con el que ya había.',
+  'progress.transfer.importFailed': 'Esa cadena no vale. Cópiala entera, empezando por WCP1.',
+  'progress.transfer.mergeNote':
+    'Importar no borra nada: se fusiona con lo que ya tienes y, si hay conflicto, gana lo marcado.',
+
   'patches.meta.title': 'Parches y novedades de World of Warcraft: Forever',
   'patches.meta.description':
     'Todos los cambios de World of Warcraft: Forever ordenados por fecha, resumidos en español y con enlace a la fuente oficial.',

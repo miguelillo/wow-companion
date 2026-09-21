@@ -82,6 +82,51 @@ const en: Dictionary = {
   'status.realms.heading': 'Realms',
   'status.source': 'Source: Blizzard API, realm and connected-realm endpoints.',
 
+  'progress.character.title': 'Your character',
+  'progress.character.none': 'You have not added a character yet.',
+  'progress.character.add': 'Add character',
+  'progress.character.name': 'Name',
+  'progress.character.realm': 'Realm',
+  'progress.character.class': 'Class',
+  'progress.character.level': 'Level',
+  'progress.character.save': 'Save',
+  'progress.character.cancel': 'Cancel',
+  'progress.character.remove': 'Remove',
+  'progress.character.removeConfirm':
+    'Remove {name}? Their progress disappears from this browser and cannot be recovered.',
+  'progress.character.pick': 'Active character',
+  'progress.storage.unavailable':
+    'Your browser will not let us store data, so anything you tick lasts only while this tab stays open.',
+
+  'progress.steps.done': '{done} of {total} steps',
+  'progress.steps.next': 'Next step',
+  'progress.steps.needCharacter': 'Add a character and you can start ticking steps off.',
+  'progress.steps.materials': 'Materials',
+  'progress.steps.skillLevel': 'Skill level',
+  'progress.steps.characterLevel': 'Character level',
+  'progress.steps.allDone': 'Guide finished. Nicely done.',
+  'progress.steps.toggle': 'Mark “{action}” as done',
+  'progress.steps.skillRange': 'Skill {from}–{to}',
+  'progress.steps.levelRange': 'Level {from}–{to}',
+
+  'progress.next.blocked': 'You need more level or skill for this one.',
+  'progress.next.remaining': '{count} to go',
+  'progress.next.go': 'Open the guide',
+
+  'progress.transfer.title': 'Take your progress with you',
+  'progress.transfer.lead':
+    'Generate a string, keep it, and paste it into another browser or device. No account needed.',
+  'progress.transfer.export': 'Generate string',
+  'progress.transfer.copy': 'Copy',
+  'progress.transfer.copied': 'Copied',
+  'progress.transfer.import': 'Import',
+  'progress.transfer.importLabel': 'Paste your string here',
+  'progress.transfer.imported': 'Done: your progress has been merged with what was already here.',
+  'progress.transfer.importFailed':
+    'That string is not one of ours. Copy all of it, starting at WCP1.',
+  'progress.transfer.mergeNote':
+    'Importing deletes nothing: it merges with what you have, and ticked wins over unticked.',
+
   'patches.meta.title': 'World of Warcraft: Forever patch notes and news',
   'patches.meta.description':
     'Every change in World of Warcraft: Forever by date, summarised in our own words, each one linking to its official source.',

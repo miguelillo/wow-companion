@@ -1,33 +1,40 @@
 ---
+import CharacterPicker from './islands/CharacterPicker.tsx';
+import NextSteps from './islands/NextSteps.tsx';
+import ProgressTransfer from './islands/ProgressTransfer.tsx';
 import { useTranslations, type Locale } from '../i18n';
+import type { Track } from '../lib/progress/next-steps';
 
 interface Props {
   locale: Locale;
+  /** Ladders this reader is on. Empty until the profession and leveling guides ship. */
+  tracks?: readonly Track[];
 }
 
-const { locale } = Astro.props;
+const { locale, tracks = [] } = Astro.props;
 const t = useTranslations(locale);
 ---
 
-<!-- The personal half of the home page. Phase 3 replaces the body with the real
-     component; the slot is never empty, it always invites the reader in. -->
-<section class="panel" aria-labelledby="next-steps-title">
-  <h2 id="next-steps-title">{t('home.next.title')}</h2>
-  <p>{t('home.next.empty')}</p>
-  <p class="small muted">{t('home.next.soon')}</p>
-</section>
+<!-- The personal half of the home page: what you should do next, and the character it is
+     calculated from. Everything here lives in this browser until there are accounts. -->
+<div class="stack">
+  <section class="panel" aria-labelledby="next-steps-title">
+    <h2 id="next-steps-title">{t('home.next.title')}</h2>
+    <NextSteps
+      client:load
+      locale={locale}
+      tracks={tracks}
+      characterHref="#character-picker-title"
+    />
+  </section>
+
+  <CharacterPicker client:visible locale={locale} />
+  <ProgressTransfer client:visible locale={locale} />
+</div>
 
 <style>
   h2 {
     font-size: var(--step-1);
     margin-block-end: var(--space-3);
-  }
-
-  p + p {
-    margin-block-start: var(--space-2);
-  }
-
-  p {
-    max-width: var(--measure);
   }
 </style>
