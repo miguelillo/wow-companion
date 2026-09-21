@@ -108,6 +108,18 @@ propio prefijo, y al importar se entienden los dos.
 Con el servidor de desarrollo hay un banco de pruebas en `/laboratorio/progreso`, con una
 guía de juguete. No se genera en el build de producción.
 
+### Un aviso sobre los datos de profesiones
+
+Las fuentes confirman que Forever **mueve los escalones de habilidad** de algunas
+profesiones: Sastrería sube unos 35 puntos antes que en Classic y Herrería unos 25,
+mientras que Alquimia e Ingeniería mantienen los rangos. Copiar una escalera de Classic
+receta a receta sería falso en la mitad de los casos, así que las guías se apoyan en lo
+que está documentado —los hitos de 150, 225 y 300, los puntos de Legado, la certificación
+y los materiales por tramo— y el detalle receta a receta se marca como provisional.
+
+Todas las fichas llevan `confirmed: false` y su aviso de beta. Se irán confirmando con los
+parches.
+
 ### Contrato con el addon
 
 `web/src/schemas/step.ts` y `web/src/schemas/progress.ts` definen el paso y el progreso una
@@ -164,7 +176,7 @@ Una fase por rama, revisión antes de seguir.
    portada conectada, degradando con elegancia cuando no hay dato.
 3. **Motor de seguimiento local** ✅ — almacenamiento, selector de personaje, lista
    marcable reutilizable, próximos pasos y transferencia por cadena de texto.
-4. Profesiones: las doce guías 1–300 y el planificador.
+4. **Profesiones** ✅ — las doce guías 1–300, marcables, y el planificador.
 5. Leveleo: zonas, ruta 1–60 y selector de nivel.
    _Hasta aquí, publicado antes del 4 de noviembre de 2026._
 6. API y cuentas: Battle.net OAuth, Postgres, fusión de progreso, códigos de emparejamiento.
