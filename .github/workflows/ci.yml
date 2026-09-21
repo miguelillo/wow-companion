@@ -58,10 +58,25 @@ jobs:
       - name: Build
         run: dotnet build api/WowCompanion.sln -c Release --no-restore
 
+  addon:
+    name: Addon
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends lua5.4
+
+      - name: Check every module compiles
+        run: luac5.4 -p addon/WowForeverCompanion/*.lua
+
+      - name: Test the pure logic
+        run: cd addon && lua5.4 tests/run.lua
+
   images:
     name: Container images
     runs-on: ubuntu-latest
-    needs: [web, api]
+    needs: [web, api, addon]
     steps:
       - uses: actions/checkout@v4
 
