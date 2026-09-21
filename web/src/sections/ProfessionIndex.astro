@@ -2,7 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BetaBadge from '../components/BetaBadge.astro';
 import ProfessionPlanner from '../components/islands/ProfessionPlanner.tsx';
-import { entryPath, sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import {
+  localizePath,
+  entryPath,
+  sectionAlternates,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
 import { getLocalizedEntries } from '../lib/collections';
 import { professionNames } from '../lib/tracks';
 import { breadcrumbSchema } from '../lib/seo';
@@ -23,7 +30,7 @@ const kinds = ['gathering', 'crafting', 'secondary'] as const;
 const jsonLd = [
   breadcrumbSchema(
     [
-      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.home'), path: localizePath(locale) },
       { name: t('nav.professions'), path: sectionPath('professions', locale) },
     ],
     Astro.site,

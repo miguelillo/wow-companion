@@ -7,11 +7,13 @@ import type { Track } from '../lib/progress/next-steps';
 
 interface Props {
   locale: Locale;
-  /** Ladders this reader is on. Empty until the profession and leveling guides ship. */
+  /** Ladders this reader is on. */
   tracks?: readonly Track[];
+  /** One route per faction; the panel picks the character's own. */
+  routes?: Partial<Record<'alliance' | 'horde', Track>>;
 }
 
-const { locale, tracks = [] } = Astro.props;
+const { locale, tracks = [], routes = {} } = Astro.props;
 const t = useTranslations(locale);
 ---
 
@@ -24,6 +26,7 @@ const t = useTranslations(locale);
       client:load
       locale={locale}
       tracks={tracks}
+      routes={routes}
       characterHref="#character-picker-title"
     />
   </section>

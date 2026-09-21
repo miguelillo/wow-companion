@@ -6,6 +6,8 @@ import { useProgress } from './useProgress';
 interface Props {
   locale: Locale;
   tracks: readonly Track[];
+  /** One route per faction; the character's own is added to the ladders considered. */
+  routes?: Partial<Record<'alliance' | 'horde', Track>>;
   /** Where to send a reader with no character yet. */
   characterHref: string;
 }
@@ -15,7 +17,12 @@ interface Props {
  * things: if more qualify we pick and say nothing about the rest, because the point is
  * not having to choose. With no character the slot invites rather than sitting empty.
  */
-export default function NextSteps({ locale, tracks, characterHref }: Props): React.ReactElement {
+export default function NextSteps({
+  locale,
+  tracks,
+  routes = {},
+  characterHref,
+}: Props): React.ReactElement {
   const t = useTranslations(locale);
   const progress = useProgress();
   const character = getActiveCharacter(progress);
@@ -33,15 +40,18 @@ export default function NextSteps({ locale, tracks, characterHref }: Props): Rea
     );
   }
 
-  if (tracks.length === 0) {
+  const route = routes[character.faction];
+  const ladders = route === undefined ? tracks : [...tracks, route];
+
+  if (ladders.length === 0) {
     // No ladders published yet: say so rather than claim the reader has finished.
     return <p className="muted">{t('home.next.soon')}</p>;
   }
 
-  const next = computeNextSteps(character, tracks);
+  const next = computeNextSteps(character, ladders);
 
   if (next.length === 0) {
-    const started = tracks.some(
+    const started = ladders.some(
       (track) =>
         track.ref.kind !== 'profession' ||
         character.professions[track.ref.profession] !== undefined,

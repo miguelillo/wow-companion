@@ -7,7 +7,7 @@ import PatchCard from '../components/PatchCard.astro';
 import RealmStatusCard from '../components/RealmStatusCard.astro';
 import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
 import { getPatches } from '../lib/collections';
-import { professionTracks } from '../lib/tracks';
+import { levelingRoutes, professionTracks } from '../lib/tracks';
 
 interface Props {
   locale: Locale;
@@ -17,6 +17,7 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 const patches = await getPatches(locale, 3);
 const tracks = await professionTracks(locale);
+const factionRouteTracks = await levelingRoutes(locale);
 ---
 
 <BaseLayout
@@ -59,7 +60,7 @@ const tracks = await professionTracks(locale);
     </div>
 
     <!-- Second layer: what this reader should do next. -->
-    <NextStepsSlot locale={locale} tracks={tracks} />
+    <NextStepsSlot locale={locale} tracks={tracks} routes={factionRouteTracks} />
   </div>
 </BaseLayout>
 

@@ -13,7 +13,7 @@ import {
   type Locale,
 } from '../i18n';
 import { articleSchema, breadcrumbSchema } from '../lib/seo';
-import { professionTracks } from '../lib/tracks';
+import { levelingRoutes, professionTracks } from '../lib/tracks';
 
 interface Props {
   locale: Locale;
@@ -28,11 +28,12 @@ const { name, summary, steps, confirmed, sources, updated, translationKey, slug 
 
 const path = entryPath('professions', slug, locale);
 const tracks = await professionTracks(locale);
+const factionRouteTracks = await levelingRoutes(locale);
 
 const jsonLd = [
   breadcrumbSchema(
     [
-      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.home'), path: localizePath(locale) },
       { name: t('nav.professions'), path: sectionPath('professions', locale) },
       { name, path },
     ],
@@ -74,6 +75,7 @@ const jsonLd = [
         client:load
         locale={locale}
         tracks={tracks}
+        routes={factionRouteTracks}
         characterHref={`${localizePath(locale)}#character-picker-title`}
       />
     </section>

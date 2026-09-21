@@ -88,6 +88,9 @@ const en: Dictionary = {
   'progress.character.name': 'Name',
   'progress.character.realm': 'Realm',
   'progress.character.class': 'Class',
+  'progress.character.faction': 'Faction',
+  'progress.faction.alliance': 'Alliance',
+  'progress.faction.horde': 'Horde',
   'progress.character.level': 'Level',
   'progress.character.save': 'Save',
   'progress.character.cancel': 'Cancel',
@@ -167,6 +170,26 @@ const en: Dictionary = {
     'Herbalism with Alchemy is what holds a raid together: potions, elixirs and the new attack power flasks. You supply yourself and have plenty spare to sell. If you would rather have utility than consumables, the alternative is Mining with Engineering.',
   'planner.note':
     'The secondaries (Cooking, First Aid and Fishing) take no slot: level them anyway.',
+
+  'leveling.meta.title': 'Levelling route 1–60 in WoW Forever, band by band',
+  'leveling.meta.description':
+    'The full 1 to 60 route in World of Warcraft: Forever, with a faction filter, the zones of every band and the dungeons worth doing.',
+  'leveling.title': 'Levelling 1–60',
+  'leveling.lead':
+    'Move the level and we will tell you where to be. The whole route sits below, with the current band picked out and the dungeons for each.',
+  'leveling.atLevel': 'At level',
+  'leveling.goTo': 'Head to',
+  'leveling.startingZone': 'Your race’s starting zone',
+  'leveling.steps': 'The steps, tickable',
+  'leveling.backToIndex': 'Back to the route',
+  'leveling.zone.range': 'Range',
+  'leveling.zone.continent': 'Continent',
+  'leveling.zone.faction': 'Faction',
+  'leveling.zone.dungeons': 'Dungeons nearby',
+  'leveling.zone.none': 'None adjacent',
+  'leveling.zone.inRoute': 'Where it sits on the route',
+  'leveling.zone.both': 'Both',
+  'leveling.zones.title': 'Zones in this band',
 
   'patches.meta.title': 'World of Warcraft: Forever patch notes and news',
   'patches.meta.description':

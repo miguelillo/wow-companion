@@ -90,6 +90,9 @@ const es = {
   'progress.character.name': 'Nombre',
   'progress.character.realm': 'Reino',
   'progress.character.class': 'Clase',
+  'progress.character.faction': 'Facción',
+  'progress.faction.alliance': 'Alianza',
+  'progress.faction.horde': 'Horda',
   'progress.character.level': 'Nivel',
   'progress.character.save': 'Guardar',
   'progress.character.cancel': 'Cancelar',
@@ -167,6 +170,26 @@ const es = {
     'Herboristería y Alquimia es lo que sostiene una raid: pociones, elixires y los frascos nuevos de poder de ataque. Te surtes tú y te sobra para vender. Si prefieres utilidad antes que consumibles, la alternativa es Minería con Ingeniería.',
   'planner.note':
     'Las secundarias (Cocina, Primeros auxilios y Pesca) no ocupan hueco: súbelas igualmente.',
+
+  'leveling.meta.title': 'Ruta de leveleo 1–60 en WoW Forever, por tramos',
+  'leveling.meta.description':
+    'La ruta completa de 1 a 60 en World of Warcraft: Forever, con filtro por facción, las zonas de cada tramo y las mazmorras que merecen la pena.',
+  'leveling.title': 'Leveleo 1–60',
+  'leveling.lead':
+    'Mueve el nivel y te decimos dónde estar. Debajo tienes la ruta entera, con el tramo actual marcado y las mazmorras de cada uno.',
+  'leveling.atLevel': 'A nivel',
+  'leveling.goTo': 'Ve a',
+  'leveling.startingZone': 'La zona inicial de tu raza',
+  'leveling.steps': 'Los pasos, marcables',
+  'leveling.backToIndex': 'Volver a la ruta',
+  'leveling.zone.range': 'Rango',
+  'leveling.zone.continent': 'Continente',
+  'leveling.zone.faction': 'Facción',
+  'leveling.zone.dungeons': 'Mazmorras cerca',
+  'leveling.zone.none': 'Ninguna al lado',
+  'leveling.zone.inRoute': 'Dónde encaja en la ruta',
+  'leveling.zone.both': 'Las dos',
+  'leveling.zones.title': 'Zonas del tramo',
 
   'patches.meta.title': 'Parches y novedades de World of Warcraft: Forever',
   'patches.meta.description':
