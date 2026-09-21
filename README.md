@@ -30,7 +30,7 @@ navegador y la cabecera), `logo.svg` (cresta y nombre) y `og-default.png` (image
 | `api/`             | API .NET 8 Minimal API, PostgreSQL y EF Core                         | Fase 2: `/api/health` y `/api/realm-status` |
 | `shared/contracts` | Contrato de paso y progreso en JSON Schema, generado desde Zod       | Fase 1 ✅ |
 | `client/`          | App de escritorio .NET que lee los SavedVariables del addon          | Fase 8    |
-| `addon/`           | Addon de WoW en Lua                                                   | Fase 7    |
+| `addon/`           | Addon de WoW en Lua                                                   | Fase 7 ✅ |
 
 ## Levantar el proyecto en local
 
@@ -62,6 +62,8 @@ Postgres en `localhost:5432` para poder trabajar contra ellos sin pasar por el p
 | `pnpm lint` / `pnpm format` | ESLint y Prettier                                          |
 | `pnpm typecheck`          | `astro check` con TypeScript en modo estricto                |
 | `pnpm test`               | Pruebas del motor de progreso, con el runner de Node          |
+| `pnpm test:addon`         | Pruebas de la lógica del addon (necesita `lua5.4`)            |
+| `pnpm addon:export`       | Vuelca las guías a tablas de Lua en `addon/…/Guides/`         |
 | `pnpm contracts:export`   | Regenera `shared/contracts/*.json` desde los esquemas de Zod |
 
 ## Cómo está montado
@@ -127,6 +129,10 @@ Todas las fichas llevan `confirmed: false` y su aviso de beta. Se irán confirma
 parches.
 
 ### Contrato con el addon
+
+Probado en las dos direcciones: una cadena generada por la web la lee el addon, y una
+generada por el addon la lee la web. Son dos implementaciones independientes (TypeScript y
+Lua) del mismo formato, así que el round trip es la única prueba que vale.
 
 `web/src/schemas/step.ts` y `web/src/schemas/progress.ts` definen el paso y el progreso una
 sola vez. `pnpm contracts:export` los vuelca a `shared/contracts/` como JSON Schema, que es
