@@ -61,6 +61,7 @@ Postgres en `localhost:5432` para poder trabajar contra ellos sin pasar por el p
 | `pnpm check`              | Formato, lint, tipos y build: lo mismo que ejecuta CI        |
 | `pnpm lint` / `pnpm format` | ESLint y Prettier                                          |
 | `pnpm typecheck`          | `astro check` con TypeScript en modo estricto                |
+| `pnpm test`               | Pruebas del motor de progreso, con el runner de Node          |
 | `pnpm contracts:export`   | Regenera `shared/contracts/*.json` desde los esquemas de Zod |
 
 ## Cómo está montado
@@ -87,6 +88,25 @@ van **en inglés**; el español aparece sólo en el texto y en los slugs.
 Toda entrada lleva `lang`, `translationKey`, `updated` y `confirmed`. Mientras Forever esté
 en beta, `confirmed` es `false` por defecto y la ficha muestra un distintivo de «sin
 confirmar»: es más barato confirmar un dato que desmentirlo.
+
+### Seguimiento de progreso
+
+Todo vive en el navegador hasta que haya cuentas (fase 6). El progreso se guarda en
+`localStorage` bajo una sola clave, y **cada lectura y cada escritura puede fallar sin
+romper nada**: si el almacenamiento está bloqueado, lo que marques dura lo que dure la
+pestaña y se avisa de ello.
+
+La regla al fusionar es siempre la misma, tanto al importar una cadena como al iniciar
+sesión más adelante: **gana lo marcado**. Nadie pierde trabajo hecho en otro dispositivo, y
+lo peor que puede pasar es repetir un paso.
+
+La cadena de transferencia es `WCP1:` más deflate y base64, usando `CompressionStream` del
+navegador, sin dependencias. Es el mismo formato que escribirá el addon en sus
+SavedVariables. Donde no exista `CompressionStream` cae a base64 sin comprimir bajo su
+propio prefijo, y al importar se entienden los dos.
+
+Con el servidor de desarrollo hay un banco de pruebas en `/laboratorio/progreso`, con una
+guía de juguete. No se genera en el build de producción.
 
 ### Contrato con el addon
 
@@ -142,8 +162,8 @@ Una fase por rama, revisión antes de seguir.
    `patches`, Docker Compose y CI.
 2. **Estado en vivo** ✅ — endpoint cacheado de reinos, página `/estado` y la tarjeta de la
    portada conectada, degradando con elegancia cuando no hay dato.
-3. Motor de seguimiento local: almacenamiento, selector de personaje, lista marcable,
-   próximos pasos, exportar e importar.
+3. **Motor de seguimiento local** ✅ — almacenamiento, selector de personaje, lista
+   marcable reutilizable, próximos pasos y transferencia por cadena de texto.
 4. Profesiones: las doce guías 1–300 y el planificador.
 5. Leveleo: zonas, ruta 1–60 y selector de nivel.
    _Hasta aquí, publicado antes del 4 de noviembre de 2026._
