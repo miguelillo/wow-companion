@@ -33,6 +33,11 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       AllowedOrigins: ${PUBLIC_SITE_URL:-http://localhost:8080}
+      Blizzard__ClientId: ${BLIZZARD_CLIENT_ID:-}
+      Blizzard__ClientSecret: ${BLIZZARD_CLIENT_SECRET:-}
+      Blizzard__Region: ${BLIZZARD_REGION:-eu}
+      Blizzard__DynamicNamespace: ${BLIZZARD_DYNAMIC_NAMESPACE:-dynamic-classic1x-eu}
+      Blizzard__Locale: ${BLIZZARD_LOCALE:-es_ES}
       ConnectionStrings__Default: Host=postgres;Database=${POSTGRES_DB:-wowcompanion};Username=${POSTGRES_USER:-wowcompanion};Password=${POSTGRES_PASSWORD:-change-me-in-production}
     expose:
       - '8080'
