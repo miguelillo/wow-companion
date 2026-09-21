@@ -52,6 +52,10 @@ const en: Dictionary = {
   'home.realms.online': 'Up',
   'home.realms.offline': 'Down',
   'home.realms.population': 'Population',
+  'home.realms.populationLow': 'low',
+  'home.realms.populationMedium': 'medium',
+  'home.realms.populationHigh': 'high',
+  'home.realms.populationFull': 'full',
   'home.realms.queue': 'Queue',
   'home.realms.noQueue': 'No queue',
   'home.realms.updated': 'Updated {time}',
@@ -68,6 +72,15 @@ const en: Dictionary = {
   'home.next.empty': 'Pick your character and we will tell you what to do next.',
   'home.next.emptyCta': 'Add a character',
   'home.next.soon': 'Ready as soon as the profession guides go live.',
+
+  'status.meta.title': 'World of Warcraft: Forever status — realms and open content',
+  'status.meta.description':
+    'How the World of Warcraft: Forever realms are doing, which content is open today, what is still to come, and how long is left until the 4 November launch.',
+  'status.title': 'Game status',
+  'status.lead':
+    'How the realms are doing and what content is open. Realm data comes from the Blizzard API and we hold it for a few minutes, so it can lag slightly.',
+  'status.realms.heading': 'Realms',
+  'status.source': 'Source: Blizzard API, realm and connected-realm endpoints.',
 
   'patches.meta.title': 'World of Warcraft: Forever patch notes and news',
   'patches.meta.description':

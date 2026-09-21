@@ -27,7 +27,7 @@ navegador y la cabecera), `logo.svg` (cresta y nombre) y `og-default.png` (image
 | Carpeta            | Qué es                                                               | Estado    |
 | ------------------ | -------------------------------------------------------------------- | --------- |
 | `web/`             | Sitio estático en Astro 7 + TypeScript, islas de React para lo vivo  | Fase 1 ✅ |
-| `api/`             | API .NET 8 Minimal API, PostgreSQL y EF Core                         | Fase 1: `/api/health` |
+| `api/`             | API .NET 8 Minimal API, PostgreSQL y EF Core                         | Fase 2: `/api/health` y `/api/realm-status` |
 | `shared/contracts` | Contrato de paso y progreso en JSON Schema, generado desde Zod       | Fase 1 ✅ |
 | `client/`          | App de escritorio .NET que lee los SavedVariables del addon          | Fase 8    |
 | `addon/`           | Addon de WoW en Lua                                                   | Fase 7    |
@@ -98,9 +98,18 @@ del otro lado hay progreso guardado apuntando a ellos.
 
 ### Dato vivo sin romper el sitio estático
 
-Las páginas se generan en build. El estado de reinos lo pide el navegador a nuestra propia
-API, que cachea la respuesta de Blizzard unos minutos. Si ese endpoint falla, la página ya
-está dibujada y la tarjeta dice que no hay dato: nunca un hueco roto ni un error.
+Las páginas se generan en build. El estado de reinos lo pide el navegador a
+`/api/realm-status`, que cachea la respuesta de Blizzard unos minutos y **sigue sirviendo la
+última respuesta buena** cuando Blizzard no contesta: unos minutos de retraso son mejores
+que un hueco. Si aun así no hay nada, el endpoint responde 503, la página ya está dibujada y
+la tarjeta dice que no hay dato. Nunca un hueco roto ni un error.
+
+Sin `BLIZZARD_CLIENT_ID` y `BLIZZARD_CLIENT_SECRET` el endpoint responde 503 desde el primer
+momento, que es exactamente el camino degradado: el sitio se puede desarrollar entero sin
+credenciales.
+
+Ojo con el namespace: el estado de reinos vive en el namespace **dinámico**
+(`BLIZZARD_DYNAMIC_NAMESPACE`), no en el estático. No son intercambiables.
 
 ## Datos de la API de Blizzard
 
@@ -131,7 +140,8 @@ Una fase por rama, revisión antes de seguir.
 1. **Esqueleto y novedades** ✅ — monorepo, Astro, TypeScript estricto, lint, rutas
    bilingües, diccionario, tema claro/oscuro, portada con el pulso del juego, colección
    `patches`, Docker Compose y CI.
-2. Estado en vivo: endpoint cacheado de reinos y contenido abierto.
+2. **Estado en vivo** ✅ — endpoint cacheado de reinos, página `/estado` y la tarjeta de la
+   portada conectada, degradando con elegancia cuando no hay dato.
 3. Motor de seguimiento local: almacenamiento, selector de personaje, lista marcable,
    próximos pasos, exportar e importar.
 4. Profesiones: las doce guías 1–300 y el planificador.
