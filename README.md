@@ -68,12 +68,18 @@ Postgres en `localhost:5432` para poder trabajar contra ellos sin pasar por el p
 
 ### Rutas e idiomas
 
-El español es el idioma por defecto y va sin prefijo; el inglés vive bajo `/en/`. Los
-**slugs están traducidos** porque son contenido (`/profesiones/alquimia` ↔
-`/en/professions/alchemy`), y las versiones hermanas se enlazan con un `translationKey`
-idéntico en el frontmatter. El mapa de slugs por idioma está en `web/src/i18n/routes.ts`;
-los textos de interfaz, en `web/src/i18n/ui/`, con el español como fuente de verdad y el
-inglés tipado contra él, de modo que una clave que falte rompe el build.
+El **inglés es el idioma por defecto** y va sin prefijo; el español vive bajo `/es/`. Los
+**slugs están traducidos** porque son contenido (`/professions/alchemy` ↔
+`/es/profesiones/alquimia`), y las versiones hermanas se enlazan con un `translationKey`
+idéntico en el frontmatter. El mapa de slugs por idioma está en `web/src/i18n/routes.ts`.
+
+Los textos de interfaz viven en `web/src/i18n/ui/`, y ahí el **español sigue siendo la
+fuente de verdad**: el inglés está tipado contra él, de modo que una clave que falte rompe
+el build. Son dos cosas distintas —qué idioma se sirve sin prefijo y cuál manda en los
+tipos— y no hace falta que coincidan.
+
+Cambiar el idioma por defecto es cambiar todas las URLs. Se hizo antes de publicar nada, así
+que no costó redirecciones; hacerlo después sí las costaría.
 
 Astro deriva la URL del nombre del fichero, así que el árbol de rutas en español lleva
 nombres en español. Para que no haya dos implementaciones, cada fichero de `web/src/pages/`
@@ -177,7 +183,7 @@ Una fase por rama, revisión antes de seguir.
 3. **Motor de seguimiento local** ✅ — almacenamiento, selector de personaje, lista
    marcable reutilizable, próximos pasos y transferencia por cadena de texto.
 4. **Profesiones** ✅ — las doce guías 1–300, marcables, y el planificador.
-5. Leveleo: zonas, ruta 1–60 y selector de nivel.
+5. **Leveleo** ✅ — 29 zonas, la ruta 1–60 por facción y el selector de nivel.
    _Hasta aquí, publicado antes del 4 de noviembre de 2026._
 6. API y cuentas: Battle.net OAuth, Postgres, fusión de progreso, códigos de emparejamiento.
 7. Addon: los dos modos, avance automático, pines con HereBeDragons, `addon:export`.
