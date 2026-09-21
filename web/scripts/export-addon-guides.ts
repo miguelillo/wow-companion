@@ -60,8 +60,8 @@ function luaStep(step: Step, indent: string): string {
 
 async function readFrontmatter(path: string): Promise<unknown> {
   const text = await readFile(path, 'utf8');
-  const match = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
-  return load(match === null ? text : match[1]);
+  const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text)?.[1];
+  return load(frontmatter ?? text);
 }
 
 async function entriesIn(collection: string, locale: Locale): Promise<unknown[]> {
