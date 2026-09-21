@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 96" width="430" height="96"
+     role="img" aria-label="WoW Companion — guías y progreso para World of Warcraft: Forever">
+  <title>WoW Companion</title>
+  <style>
+    .name { font: 400 38px Marcellus, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif; fill: #1F2522; }
+    .tag { font: 400 15px Karla, 'Segoe UI', system-ui, Arial, sans-serif; fill: #5E665E; }
+    @media (prefers-color-scheme: dark) {
+      .name { fill: #E7E3D6; }
+      .tag { fill: #98A59B; }
+    }
+  </style>
+  <g transform="translate(2 16)">
+    <defs>
+        <linearGradient id="lk-gold" x1="0.1" y1="0" x2="0.9" y2="1">
+          <stop offset="0" stop-color="#F8E7B6"/>
+          <stop offset="0.26" stop-color="#DDB96E"/>
+          <stop offset="0.54" stop-color="#9A7422"/>
+          <stop offset="0.76" stop-color="#E6C886"/>
+          <stop offset="1" stop-color="#836318"/>
+        </linearGradient>
+        <linearGradient id="lk-rim" x1="0.2" y1="0" x2="0.8" y2="1">
+          <stop offset="0" stop-color="#F8E7B6"/>
+          <stop offset="0.35" stop-color="#C39C43"/>
+          <stop offset="0.7" stop-color="#7A5D18"/>
+          <stop offset="1" stop-color="#D6B069"/>
+        </linearGradient>
+        <radialGradient id="lk-field" cx="0.5" cy="0.3" r="0.85">
+          <stop offset="0" stop-color="#31795F"/>
+          <stop offset="0.55" stop-color="#1C4B3F"/>
+          <stop offset="1" stop-color="#0D2621"/>
+        </radialGradient>
+        <radialGradient id="lk-halo" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#FFEDBC"/>
+          <stop offset="0.4" stop-color="#E7C77F" stop-opacity="0.7"/>
+          <stop offset="1" stop-color="#E7C77F" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <path d="M4 4h56v29c0 15-14.5 23.5-28 28C18.5 56.5 4 48 4 33z" fill="url(#lk-rim)"/>
+      <path d="M7.5 7.5h45v25.5c0 12.8-12.3 20-22.5 24C19.8 53 7.5 45.8 7.5 33z" fill="url(#lk-field)"/>
+      <path d="M10.5 10.5h39v22.5c0 11-10.6 17.4-19.5 21C21.1 50.4 10.5 44 10.5 33z" fill="none" stroke="#E6C886" stroke-width="0.9" opacity="0.4"/>
+      <!-- The route: waypoints already behind you, dashed trail, and the next one still ahead. -->
+      <g>
+        <path d="M16 20.5 L23 43 L30 26.5 L37 43 L40.5 30" fill="none" stroke="#0A211C"
+              stroke-width="7.6" stroke-linecap="round" stroke-linejoin="round"
+              stroke-dasharray="6.2 4" opacity="0.5"/>
+        <path d="M16 20.5 L23 43 L30 26.5 L37 43 L40.5 30" fill="none" stroke="url(#lk-gold)"
+              stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"
+              stroke-dasharray="6.2 4"/>
+        <path d="M15.4 19.6 L22.4 42.1 L29.4 25.6 L36.4 42.1 L39.9 29.1" fill="none" stroke="#F8E7B6"
+              stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+              stroke-dasharray="6.2 4" opacity="0.45"/>
+        <circle cx="45" cy="19.5" r="9.5" fill="url(#lk-halo)" opacity="0.5"/>
+        <circle cx="45" cy="19.5" r="5.4" fill="#0D2621" stroke="url(#lk-rim)" stroke-width="3"/>
+        <circle cx="45" cy="19.5" r="2.1" fill="#F8E7B6"/>
+      </g>
+  </g>
+  <text class="name" x="86" y="49">WoW Companion</text>
+  <text class="tag" x="88" y="70">Guías y progreso para World of Warcraft: Forever</text>
+</svg>

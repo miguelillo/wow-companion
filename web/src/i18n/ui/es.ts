@@ -54,6 +54,10 @@ const es = {
   'home.realms.online': 'En línea',
   'home.realms.offline': 'Caído',
   'home.realms.population': 'Población',
+  'home.realms.populationLow': 'baja',
+  'home.realms.populationMedium': 'media',
+  'home.realms.populationHigh': 'alta',
+  'home.realms.populationFull': 'llena',
   'home.realms.queue': 'Cola',
   'home.realms.noQueue': 'Sin cola',
   'home.realms.updated': 'Actualizado {time}',
@@ -70,6 +74,15 @@ const es = {
   'home.next.empty': 'Elige tu personaje y te decimos qué hacer ahora en profesión y en leveleo.',
   'home.next.emptyCta': 'Crear un personaje',
   'home.next.soon': 'Disponible en cuanto publiquemos las guías de profesiones.',
+
+  'status.meta.title': 'Estado de World of Warcraft: Forever: reinos y contenido abierto',
+  'status.meta.description':
+    'Cómo van los reinos de World of Warcraft: Forever, qué contenido está abierto hoy, qué falta por abrir y cuánto queda para el lanzamiento del 4 de noviembre.',
+  'status.title': 'Estado del juego',
+  'status.lead':
+    'Cómo van los reinos y qué contenido está abierto. El dato de reinos viene de la API de Blizzard y lo guardamos unos minutos, así que puede ir con un poco de retraso.',
+  'status.realms.heading': 'Reinos',
+  'status.source': 'Fuente: API de Blizzard, endpoints de realm y connected-realm.',
 
   'patches.meta.title': 'Parches y novedades de World of Warcraft: Forever',
   'patches.meta.description':

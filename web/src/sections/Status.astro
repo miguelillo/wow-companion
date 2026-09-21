@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Countdown from '../components/Countdown.astro';
+import OpenContentCard from '../components/OpenContentCard.astro';
+import RealmStatusCard from '../components/RealmStatusCard.astro';
+import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import { breadcrumbSchema } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.status'), path: sectionPath('status', locale) },
+    ],
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('status.meta.title')}
+  description={t('status.meta.description')}
+  alternates={sectionAlternates('status')}
+  jsonLd={jsonLd}
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <h1>{t('status.title')}</h1>
+      <p class="muted lead">{t('status.lead')}</p>
+    </header>
+
+    <Countdown locale={locale} />
+
+    <section class="stack" aria-labelledby="realms-heading">
+      <h2 id="realms-heading">{t('status.realms.heading')}</h2>
+      <RealmStatusCard locale={locale} full={true} />
+      <p class="small muted">{t('status.source')}</p>
+    </section>
+
+    <OpenContentCard locale={locale} />
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+  }
+</style>
