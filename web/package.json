@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "contracts:export": "tsx scripts/export-contracts.ts"
+    "contracts:export": "tsx scripts/export-contracts.ts",
+    "addon:export": "tsx scripts/export-addon-guides.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
@@ -28,10 +29,12 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
+    "@types/js-yaml": "^4.0.9",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^10.11.0",
     "eslint-plugin-astro": "^3.2.1",
+    "js-yaml": "^5.4.2",
     "prettier": "^3.9.8",
     "prettier-plugin-astro": "^1.0.1",
     "tsx": "^4.23.15",

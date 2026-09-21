@@ -14,7 +14,9 @@
     "format:check": "pnpm --filter web format:check",
     "typecheck": "pnpm --filter web typecheck",
     "test": "pnpm --filter web test",
+    "test:addon": "cd addon && lua5.4 tests/run.lua",
     "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
-    "contracts:export": "pnpm --filter web contracts:export"
+    "contracts:export": "pnpm --filter web contracts:export",
+    "addon:export": "pnpm --filter web addon:export"
   }
 }
