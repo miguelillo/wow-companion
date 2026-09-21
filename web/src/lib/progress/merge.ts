@@ -49,6 +49,7 @@ function mergeCharacter(base: CharacterProgress, incoming: CharacterProgress): C
     name: newer.name,
     realm: newer.realm,
     class: newer.class,
+    faction: newer.faction,
     level: Math.max(base.level, incoming.level),
     professions,
     leveling: {

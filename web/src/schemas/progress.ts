@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { isoDateTimeSchema, keySchema, stepIdSchema } from './primitives';
+import { isoDateTimeSchema, keySchema, playableFactionSchema, stepIdSchema } from './primitives';
 
 export const professionProgressSchema = z.object({
   skillLevel: z.number().int().min(0).max(300),
@@ -15,6 +15,8 @@ export const characterProgressSchema = z.object({
   realm: z.string().min(1),
   /** Class key, never translated: 'warrior', 'priest'… */
   class: keySchema,
+  /** Which 1–60 route applies. Defaults so documents written before this still parse. */
+  faction: playableFactionSchema.default('alliance'),
   level: z.number().int().min(1).max(60),
   /** Keyed by profession translationKey: 'alchemy', 'blacksmithing'… */
   professions: z.record(keySchema, professionProgressSchema).default({}),

@@ -16,6 +16,7 @@ function character(overrides: Partial<CharacterProgress> = {}): CharacterProgres
     name: 'Kaelin',
     realm: 'Sulfuron',
     class: 'priest',
+    faction: 'alliance',
     level: 12,
     professions: {},
     leveling: { completedSteps: [] },

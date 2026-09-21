@@ -38,6 +38,7 @@ export default function CharacterPicker({ locale }: Props): React.ReactElement {
       name,
       realm,
       class: String(data.get('class') ?? 'warrior'),
+      faction: data.get('faction') === 'horde' ? 'horde' : 'alliance',
       level: Number(data.get('level') ?? 1),
     });
     setAdding(false);
@@ -91,6 +92,13 @@ export default function CharacterPicker({ locale }: Props): React.ReactElement {
                     {entry.name[locale]}
                   </option>
                 ))}
+              </select>
+            </label>
+            <label>
+              {t('progress.character.faction')}
+              <select name="faction" defaultValue="alliance">
+                <option value="alliance">{t('progress.faction.alliance')}</option>
+                <option value="horde">{t('progress.faction.horde')}</option>
               </select>
             </label>
             <label>

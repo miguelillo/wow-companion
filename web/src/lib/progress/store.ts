@@ -82,6 +82,7 @@ export interface NewCharacter {
   readonly realm: string;
   readonly class: string;
   readonly level: number;
+  readonly faction: 'alliance' | 'horde';
 }
 
 export function addCharacter(character: NewCharacter): string {
@@ -97,6 +98,7 @@ export function addCharacter(character: NewCharacter): string {
         name: character.name,
         realm: character.realm,
         class: character.class,
+        faction: character.faction,
         level: character.level,
         professions: document.characters[id]?.professions ?? {},
         leveling: document.characters[id]?.leveling ?? { completedSteps: [] },

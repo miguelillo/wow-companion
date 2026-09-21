@@ -34,6 +34,14 @@
             "type": "string",
             "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
           },
+          "faction": {
+            "default": "alliance",
+            "type": "string",
+            "enum": [
+              "alliance",
+              "horde"
+            ]
+          },
           "level": {
             "type": "integer",
             "minimum": 1,
