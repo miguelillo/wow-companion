@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ZoneDetail from '../../../sections/ZoneDetail.astro';
+import { entryPath } from '../../../i18n';
+import { findTranslation, getLocalizedEntries } from '../../../lib/collections';
+
+export const getStaticPaths = (async () => {
+  const entries = await getLocalizedEntries('zones', 'es');
+
+  return Promise.all(
+    entries.map(async (entry) => {
+      const sibling = await findTranslation('zones', entry.data.translationKey, 'en');
+      return {
+        params: { zone: entry.data.slug },
+        props: {
+          entry,
+          alternates: {
+            es: entryPath('leveling', entry.data.slug, 'es'),
+            ...(sibling === undefined
+              ? {}
+              : { en: entryPath('leveling', sibling.data.slug, 'en') }),
+          },
+        },
+      };
+    }),
+  );
+}) satisfies GetStaticPaths;
+
+const { entry, alternates } = Astro.props;
+---
+
+<ZoneDetail locale="es" entry={entry} alternates={alternates} />
