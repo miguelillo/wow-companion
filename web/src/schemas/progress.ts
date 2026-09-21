@@ -6,6 +6,10 @@ export const professionProgressSchema = z.object({
   completedSteps: z.array(stepIdSchema),
 });
 
+export const levelingProgressSchema = z.object({
+  completedSteps: z.array(stepIdSchema),
+});
+
 export const characterProgressSchema = z.object({
   name: z.string().min(2).max(12),
   realm: z.string().min(1),
@@ -14,11 +18,29 @@ export const characterProgressSchema = z.object({
   level: z.number().int().min(1).max(60),
   /** Keyed by profession translationKey: 'alchemy', 'blacksmithing'… */
   professions: z.record(keySchema, professionProgressSchema).default({}),
+  /**
+   * The leveling route is a ladder like a profession, but it is not one, so its ticked
+   * steps live on their own. Optional with a default: documents written before this
+   * field existed still parse.
+   */
+  leveling: levelingProgressSchema.default({ completedSteps: [] }),
   updatedAt: isoDateTimeSchema,
 });
 
 export type CharacterProgress = z.infer<typeof characterProgressSchema>;
 export type ProfessionProgress = z.infer<typeof professionProgressSchema>;
+export type LevelingProgress = z.infer<typeof levelingProgressSchema>;
+
+/**
+ * Which ladder a step belongs to. The two are tracked separately but behave the same,
+ * so every component takes one of these rather than special-casing professions.
+ */
+export type TrackRef =
+  { readonly kind: 'profession'; readonly profession: string } | { readonly kind: 'leveling' };
+
+export function trackKey(track: TrackRef): string {
+  return track.kind === 'leveling' ? 'leveling' : `profession:${track.profession}`;
+}
 
 /** `name-realm`, lowercased: the key in local storage and in the character picker. */
 export const characterIdSchema = keySchema;

@@ -50,6 +50,24 @@
         ]
       }
     },
+    "leveling": {
+      "default": {
+        "completedSteps": []
+      },
+      "type": "object",
+      "properties": {
+        "completedSteps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(prof|lvl)-[a-z0-9]+(?:-[a-z0-9]+)*-\\d{3}$"
+          }
+        }
+      },
+      "required": [
+        "completedSteps"
+      ]
+    },
     "updatedAt": {
       "type": "string",
       "format": "date-time",
