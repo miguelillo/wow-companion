@@ -36,6 +36,16 @@ export function computeNextSteps(
   const candidates: NextStep[] = [];
 
   for (const track of tracks) {
+    // Only ladders this character is actually on. A profession they have never ticked a
+    // step of, or set a skill for, is not something they are doing -- listing it would
+    // tell a fresh character to level all twelve at once.
+    if (
+      track.ref.kind === 'profession' &&
+      character.professions[track.ref.profession] === undefined
+    ) {
+      continue;
+    }
+
     const done = new Set(completedSteps(character, track.ref));
     const pending = track.steps.filter((step) => !done.has(step.id));
     const step = pending[0];

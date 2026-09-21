@@ -194,14 +194,30 @@ describe('computeNextSteps', () => {
   });
 
   it('never returns more than three things', () => {
-    const many: Track[] = ['alchemy', 'mining', 'tailoring', 'cooking', 'fishing'].map((key) => ({
+    const keys = ['alchemy', 'mining', 'tailoring', 'cooking', 'fishing'];
+    const many: Track[] = keys.map((key) => ({
       ref: { kind: 'profession', profession: key },
       label: key,
       steps,
       href: `/profesiones/${key}`,
     }));
+    const onAllOfThem = character({
+      professions: Object.fromEntries(
+        keys.map((key) => [key, { skillLevel: 0, completedSteps: [] }]),
+      ),
+    });
 
-    assert.equal(computeNextSteps(character(), many).length, 3);
+    assert.equal(computeNextSteps(onAllOfThem, many).length, 3);
+  });
+
+  it('ignores a profession the character has never touched', () => {
+    // Otherwise a fresh character is told to level all twelve professions at once.
+    const next = computeNextSteps(character(), tracks);
+
+    assert.deepEqual(
+      next.map((entry) => entry.track.ref.kind),
+      ['leveling'],
+    );
   });
 
   it('skips a ladder that is finished', () => {
@@ -215,6 +231,15 @@ describe('computeNextSteps', () => {
     );
 
     assert.deepEqual(next, []);
+  });
+
+  it('counts a profession as started once a skill level is recorded', () => {
+    const next = computeNextSteps(
+      character({ professions: { alchemy: { skillLevel: 5, completedSteps: [] } } }),
+      [tracks[0]!],
+    );
+
+    assert.equal(next[0]?.step.id, 'prof-alchemy-001');
   });
 });
 
