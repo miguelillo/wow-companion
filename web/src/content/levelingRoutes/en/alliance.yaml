@@ -1,0 +1,147 @@
+lang: en
+translationKey: alliance
+slug: alliance
+title: 'Levelling route 1–60 for the Alliance in WoW Forever'
+description: >-
+  The full 1 to 60 route for the Alliance in World of Warcraft: Forever, band by band, with the
+  dungeons worth doing in each.
+updated: 2026-09-21
+faction: alliance
+sources:
+  - label: 'Blizzard — Discover What’s Next: WoW at BlizzCon 2026'
+    url: https://worldofwarcraft.blizzard.com/en-us/news/24301145
+segments:
+  - from: 1
+    to: 10
+    zones: []
+    dungeons: []
+    steps:
+      - id: lvl-alliance-001
+        from: 1
+        to: 10
+        action: >-
+          Finish your race’s starting zone without skipping quests: it is the fastest band in the game
+          and it kits you out.
+      - id: lvl-alliance-002
+        from: 1
+        to: 10
+        action: >-
+          Learn your two professions and all three secondaries before you leave. Cooking and First Aid
+          cost you no slot.
+  - from: 10
+    to: 20
+    zones: [westfall, loch-modan, darkshore]
+    dungeons: [deadmines]
+    steps:
+      - id: lvl-alliance-003
+        from: 10
+        to: 20
+        action: >-
+          All of Westfall: the Defias chain is the spine of this band.
+      - id: lvl-alliance-004
+        from: 10
+        to: 20
+        action: >-
+          Deadmines in a group the moment you hit 17. The gear lasts you to 25.
+      - id: lvl-alliance-005
+        from: 10
+        to: 20
+        action: >-
+          Loch Modan or Darkshore to finish, depending on where you started.
+  - from: 20
+    to: 30
+    zones: [redridge-mountains, duskwood, wetlands, ashenvale]
+    dungeons: [stockade, gnomeregan]
+    steps:
+      - id: lvl-alliance-006
+        from: 20
+        to: 30
+        action: >-
+          Redridge then Duskwood: they chain naturally and they are next to each other.
+      - id: lvl-alliance-007
+        from: 20
+        to: 30
+        action: >-
+          The Wetlands once you run dry at your level. Mind the road in.
+      - id: lvl-alliance-008
+        from: 20
+        to: 30
+        action: >-
+          Gnomeregan in a group around 27. It is long, so go in with time to spare.
+  - from: 30
+    to: 40
+    zones: [stranglethorn-vale, arathi-highlands, desolace, dustwallow-marsh, alterac-mountains]
+    dungeons: [scarlet-monastery, razorfen-downs, uldaman]
+    steps:
+      - id: lvl-alliance-009
+        from: 30
+        to: 40
+        action: >-
+          Stranglethorn top to bottom: no zone in the band has more quests. When it wears you down,
+          alternate with Arathi.
+      - id: lvl-alliance-010
+        from: 30
+        to: 40
+        action: >-
+          Scarlet Monastery as soon as you can form a group. Graveyard, Library and Armory beat any
+          quest for experience per hour.
+      - id: lvl-alliance-011
+        from: 30
+        to: 40
+        action: >-
+          Close the band with Desolace or Dustwallow, depending on which side of the sea you are on.
+  - from: 40
+    to: 50
+    zones: [tanaris, feralas, badlands, the-hinterlands, searing-gorge]
+    dungeons: [zul-farrak, maraudon, sunken-temple]
+    steps:
+      - id: lvl-alliance-012
+        from: 40
+        to: 50
+        action: >-
+          Tanaris with Gadgetzan as your base. Pick up every quest before you leave town.
+      - id: lvl-alliance-013
+        from: 40
+        to: 50
+        action: >-
+          Feralas alongside: the most productive zone of the band if you are solo.
+      - id: lvl-alliance-014
+        from: 40
+        to: 50
+        action: >-
+          Zul’Farrak and Sunken Temple in a group. Uldaman if your gear is behind.
+  - from: 50
+    to: 60
+    zones:
+      [
+        un-goro-crater,
+        felwood,
+        western-plaguelands,
+        eastern-plaguelands,
+        winterspring,
+        burning-steppes,
+        silithus,
+      ]
+    dungeons: [blackrock-depths, dire-maul, stratholme, scholomance, ubrs]
+    steps:
+      - id: lvl-alliance-015
+        from: 50
+        to: 60
+        action: >-
+          Un’Goro first: dense quests and, with Skinning, the best leather in the game.
+      - id: lvl-alliance-016
+        from: 50
+        to: 60
+        action: >-
+          Western Plaguelands, then Eastern. This is the band that leaves you ready to raid.
+      - id: lvl-alliance-017
+        from: 50
+        to: 60
+        action: >-
+          Blackrock Depths in a group from 52: experience, gear, and the key to what comes next.
+      - id: lvl-alliance-018
+        from: 50
+        to: 60
+        action: >-
+          Finish in Winterspring or Silithus if you are short. Stratholme and Scholomance once you hit
+          58.

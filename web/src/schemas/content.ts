@@ -49,6 +49,7 @@ export const zoneSchema = z
     ...localizedFields,
     /** English, never translated: 'Westfall'. */
     name: z.string().min(1),
+    summary: z.string().min(1),
     faction: factionSchema,
     ...levelRange,
     continent: continentSchema,
@@ -103,8 +104,11 @@ export const levelingRouteSchema = z.object({
       z.object({
         from: z.number().int().min(1).max(60),
         to: z.number().int().min(1).max(60),
-        /** Zone translationKeys, in the order the route visits them. */
-        zones: z.array(keySchema).min(1),
+        /**
+         * Zone translationKeys, in the order the route visits them. Empty for the first
+         * band, where the zone depends on the race you picked.
+         */
+        zones: z.array(keySchema).default([]),
         dungeons: z.array(keySchema).default([]),
         steps: stepListSchema,
       }),
