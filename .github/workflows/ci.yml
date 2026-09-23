@@ -69,6 +69,20 @@ jobs:
       - name: Install Lua
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends lua5.1
 
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # The guides are generated, not committed, so without this the job checks eight
+      # modules and none of the Lua that actually ships beside them.
+      - name: Generate the guides
+        run: pnpm run addon:export
+
       - name: Check every module compiles
         run: luac5.1 -p addon/WowForeverCompanion/*.lua addon/WowForeverCompanion/Guides/*.lua
 
