@@ -129,6 +129,97 @@ do
   equal('falls back to the level band', ns.Progress.bandForLevel(segments, 24).from, 20)
 end
 
+-- Route --------------------------------------------------------------------------
+
+do
+  print('Route')
+  local Route = load('Route.lua')
+
+  local function place(zone, x, y) return { zone = zone, x = x, y = y } end
+  local steps = {
+    { id = 'lvl-a-001', place = place('westfall', 10, 10) },
+    { id = 'lvl-a-002', place = place('westfall', 20, 20) },
+    { id = 'lvl-a-003', place = place('westfall', 30, 30) },
+    { id = 'lvl-a-004', place = place('redridge-mountains', 40, 40) },
+    { id = 'lvl-a-005', place = place('westfall', 50, 50) },
+  }
+  local doneIds = { ['lvl-a-001'] = true }
+  local function isDone(step) return doneIds[step.id] == true end
+
+  local plan = Route.plan(steps, isDone, 'westfall')
+
+  -- Only this zone's steps. The Redridge one is not ours to draw here.
+  equal('keeps only the zone being looked at', #plan.pins, 4)
+  equal('the finished step keeps its pin', plan.pins[1].state, 'done')
+  check('a finished step carries no number', plan.pins[1].number == nil)
+  equal('the first unfinished step is the current one', plan.pins[2].state, 'current')
+  equal('and is numbered 1', plan.pins[2].number, 1)
+  equal('the one after it is ahead', plan.pins[3].state, 'ahead')
+  equal('numbering follows the guide, not the map', plan.pins[4].number, 3)
+
+  -- The whole point of the falloff: the near leg solid, the far ones faint.
+  equal('the current leg is solid', plan.legs[1].alpha, 1)
+  check('later legs fade', plan.legs[#plan.legs].alpha < plan.legs[1].alpha)
+
+  -- The rule that stops people swimming.
+  for index = 1, #plan.legs do
+    equal('no leg crosses a zone border', plan.legs[index].from.zone, plan.legs[index].to.zone)
+  end
+
+  -- A step carrying a path is followed point by point instead of cut straight.
+  local winding = {
+    { id = 'lvl-b-001', place = place('desolace', 10, 10) },
+    {
+      id = 'lvl-b-002',
+      place = place('desolace', 40, 40),
+      path = { place('desolace', 10, 10), place('desolace', 10, 40), place('desolace', 40, 40) },
+    },
+  }
+  doneIds = { ['lvl-b-001'] = true }
+  local wound = Route.plan(winding, isDone, 'desolace')
+  equal('a step with a path draws every leg of it', #wound.legs, 2)
+  equal('and the first leg turns where the guide says', wound.legs[1].to.y, 40)
+
+  -- Beyond the falloff nothing is drawn at all.
+  local long = {}
+  for index = 1, 20 do
+    long[index] = { id = 'lvl-c-' .. index, place = place('westfall', index, index) }
+  end
+  local far = Route.plan(long, function() return false end, 'westfall')
+  equal('the horizon stops where the falloff does', #far.pins, #Route.FALLOFF)
+
+  -- Leg geometry: a due-east leg across half a 1000-unit map is 500 units and flat.
+  local leg = Route.leg(place('westfall', 25, 50), place('westfall', 75, 50), 1000, 800)
+  equal('a leg is centred between its ends', leg.x, 50)
+  equal('and its length follows the canvas, not the percentages', leg.length, 500)
+  equal('a due-east leg is not rotated', leg.angle, 0)
+
+  -- Due south on screen: map y grows downwards, so the rotation is positive a quarter turn.
+  local south = Route.leg(place('westfall', 50, 10), place('westfall', 50, 60), 1000, 800)
+  -- Map y grows downwards but the interface's y grows upwards, so heading south on
+  -- screen is a quarter turn clockwise, which is negative.
+  check('a southward leg turns a quarter clockwise',
+    math.abs(south.angle + math.pi / 2) < 1e-9)
+  check('and its length uses the height', math.abs(south.length - 400) < 1e-9)
+
+  -- Overlapping numbers are worse than one grouped pin.
+  local crowded = {
+    { place = place('westfall', 10, 10), state = 'ahead', number = 5 },
+    { place = place('westfall', 11, 10), state = 'ahead', number = 6 },
+    { place = place('westfall', 60, 60), state = 'ahead', number = 7 },
+  }
+  local grouped = Route.cluster(crowded)
+  equal('pins on top of each other become one', #grouped, 2)
+  equal('and the group keeps both numbers', #grouped[1].group, 2)
+  check('a pin on its own is left alone', grouped[2].group == nil)
+
+  -- When the next thing to do is elsewhere, say where, and draw no line to it.
+  check('stays quiet while the next step is in this zone',
+    Route.exitTo(steps, function() return false end, 'westfall') == nil)
+  equal('and reports the crossing when it is next', Route.exitTo(
+    { steps[4] }, function() return false end, 'westfall'), 'redridge-mountains')
+end
+
 print('')
 print(string.format('%d passed, %d failed', passed, failed))
 os.exit(failed == 0 and 0 or 1)

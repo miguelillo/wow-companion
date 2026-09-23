@@ -15,8 +15,8 @@ ns.Map = Map
 -- atan(dy), so every dash was rotated by the wrong angle. math.atan2 is the 5.1 spelling.
 local atan2 = math.atan2 or math.atan
 
-local DASHES_PER_LEG = 12
-local LOOKAHEAD = 3
+-- How thick a route leg is drawn, in interface units.
+local LEG_THICKNESS = 9
 
 local hbd, pins
 local pinPool, linePool = {}, {}
@@ -83,47 +83,48 @@ end
 
 local function newPin()
   local frame = _G.CreateFrame('Frame', nil, _G.UIParent)
-  frame:SetSize(14, 14)
+  frame:SetSize(22, 22)
   local texture = frame:CreateTexture(nil, 'OVERLAY')
   texture:SetAllPoints()
   texture:SetTexture('Interface\\Minimap\\ObjectIcons')
   frame.texture = texture
+
+  -- The number the player reads. Friz Quadrata is the game's own heading face; falling
+  -- back to a font object rather than a path keeps this working on the ruRU, koKR and
+  -- zhCN clients, where those font files live elsewhere.
+  local label = frame:CreateFontString(nil, 'OVERLAY', 'GameFontNormalSmall')
+  label:SetPoint('CENTER')
+  label:SetShadowOffset(1, -1)
+  frame.label = label
   return { frame = frame }
 end
 
-local function newDash()
+--- One leg is one stretched, rotated texture. The old code drew twelve little dashes per
+--- leg, which is fine for three pins and hundreds of frames for a whole route.
+local function newLeg()
   local frame = _G.CreateFrame('Frame', nil, _G.UIParent)
-  frame:SetSize(6, 2)
+  frame:SetSize(10, LEG_THICKNESS)
   local texture = frame:CreateTexture(nil, 'ARTWORK')
   texture:SetAllPoints()
-  texture:SetColorTexture(0.85, 0.70, 0.39, 0.85)
+  texture:SetColorTexture(0.85, 0.70, 0.39, 1)
   frame.texture = texture
   return { frame = frame }
 end
 
---- A dashed leg between two points on the same zone map. Each dash is its own texture,
---- rotated to face along the line, because the API has no way to draw one.
-local function drawLeg(mapId, fromX, fromY, toX, toY)
-  local angle = atan2((toY - fromY), (toX - fromX))
-
-  for index = 0, DASHES_PER_LEG - 1 do
-    -- Every other slot is left empty: that is what makes it dashed.
-    if index % 2 == 0 then
-      local t = index / (DASHES_PER_LEG - 1)
-      local dash = acquire(linePool, newDash)
-      dash.frame.texture:SetRotation(-angle)
-      dash.frame:Show()
-      pins:AddWorldMapIconMap(
-        ns, dash.frame, mapId,
-        (fromX + (toX - fromX) * t) / 100,
-        (fromY + (toY - fromY) * t) / 100
-      )
-    end
-  end
+--- The map canvas in UI units. A leg's length depends on it, so it has to be read fresh:
+--- it changes with zoom and when the player resizes the map.
+local function canvasSize()
+  local map = _G.WorldMapFrame
+  local child = map and map.ScrollContainer and map.ScrollContainer.Child
+  if child == nil or child.GetWidth == nil then return nil end
+  return child:GetWidth(), child:GetHeight()
 end
 
---- Only the active zone and the next few steps get pins. Drawing the whole route is where
---- addons like this fall over, and nobody needs a pin for level 48 at level 12.
+local STATE_ALPHA = { done = 0.35 }
+local STATE_SIZE = { current = 26, ahead = 22, done = 16 }
+
+--- Draws the plan Route worked out. This function decides nothing: what to show, in what
+--- order and how faint is all settled in Route.lua, where the tests can reach it.
 function Map.refresh()
   if not enabled or not libraries() then return end
   if _G.CreateFrame == nil then return end
@@ -136,32 +137,52 @@ function Map.refresh()
   local steps = ns.Core.levelingSteps()
   local track = { kind = 'leveling' }
   local zoneKey = Map.currentZoneKey()
+  if zoneKey == nil then return end
 
-  local placed = {}
-  for index = 1, #steps do
-    local step = steps[index]
-    if not ns.Progress.isDone(character, track, step.id) and step.place ~= nil then
-      if zoneKey == nil or step.place.zone == zoneKey then
-        placed[#placed + 1] = step.place
-        if #placed >= LOOKAHEAD then break end
-      end
+  local mapId = ZONE_IDS[zoneKey]
+  if mapId == nil then return end
+
+  local plan = ns.Route.plan(steps, function(step)
+    return ns.Progress.isDone(character, track, step.id)
+  end, zoneKey)
+
+  local width, height = canvasSize()
+
+  for index = 1, #plan.legs do
+    local leg = plan.legs[index]
+    if width ~= nil then
+      local geometry = ns.Route.leg(leg.from, leg.to, width, height)
+      local item = acquire(linePool, newLeg)
+      item.frame:SetSize(geometry.length, LEG_THICKNESS)
+      item.frame:SetAlpha(leg.alpha)
+      item.frame.texture:SetRotation(geometry.angle)
+      item.frame:Show()
+      pins:AddWorldMapIconMap(ns, item.frame, mapId, geometry.x / 100, geometry.y / 100)
     end
   end
 
-  for index = 1, #placed do
-    local place = placed[index]
-    local mapId = ZONE_IDS[place.zone]
-    if mapId ~= nil then
-      local pin = acquire(pinPool, newPin)
-      pin.frame:Show()
-      pins:AddWorldMapIconMap(ns, pin.frame, mapId, place.x / 100, place.y / 100)
+  local drawn = ns.Route.cluster(plan.pins)
+  for index = 1, #drawn do
+    local pin = drawn[index]
+    local item = acquire(pinPool, newPin)
+    local size = STATE_SIZE[pin.state] or 22
+    item.frame:SetSize(size, size)
+    item.frame:SetAlpha(pin.alpha or STATE_ALPHA[pin.state] or 1)
 
-      local next = placed[index + 1]
-      if next ~= nil and ZONE_IDS[next.zone] == mapId then
-        drawLeg(mapId, place.x, place.y, next.x, next.y)
-      end
+    -- A group of pins shows every number it swallowed, so nothing silently disappears.
+    if pin.group ~= nil then
+      item.frame.label:SetText(table.concat(pin.group, '\194\183'))
+    else
+      item.frame.label:SetText(pin.number and tostring(pin.number) or '')
     end
+
+    item.frame:Show()
+    pins:AddWorldMapIconMap(ns, item.frame, mapId, pin.place.x / 100, pin.place.y / 100)
   end
+
+  Map.exitZone = ns.Route.exitTo(steps, function(step)
+    return ns.Progress.isDone(character, track, step.id)
+  end, zoneKey)
 end
 
 --- If TomTom is installed it already owns the arrow, and two arrows is worse than one.

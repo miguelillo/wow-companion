@@ -23,6 +23,7 @@
 Json.lua
 Codec.lua
 Progress.lua
+Route.lua
 Core.lua
 UI.lua
 Map.lua

@@ -16,6 +16,7 @@ import { load } from 'js-yaml';
 import { professionSchema, levelingRouteSchema } from '../src/schemas/content';
 import { stepSchema } from '../src/schemas/step';
 import type { Step } from '../src/schemas/step';
+import type { Place } from '../src/schemas/primitives';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const CONTENT = join(here, '..', 'src', 'content');
@@ -34,6 +35,10 @@ function luaString(value: string): string {
   return `"${escaped}"`;
 }
 
+function luaPlace(place: Place): string {
+  return `{ zone = ${luaString(place.zone)}, x = ${place.x}, y = ${place.y} }`;
+}
+
 function luaStep(step: Step, indent: string): string {
   const parts = [
     `id = ${luaString(step.id)}`,
@@ -49,10 +54,9 @@ function luaStep(step: Step, indent: string): string {
     parts.push(`materials = { ${materials} }`);
   }
   if (step.note !== undefined) parts.push(`note = ${luaString(step.note)}`);
-  if (step.place !== undefined) {
-    parts.push(
-      `place = { zone = ${luaString(step.place.zone)}, x = ${step.place.x}, y = ${step.place.y} }`,
-    );
+  if (step.place !== undefined) parts.push(`place = ${luaPlace(step.place)}`);
+  if (step.path !== undefined) {
+    parts.push(`path = { ${step.path.map(luaPlace).join(', ')} }`);
   }
 
   return `${indent}{ ${parts.join(', ')} },`;
