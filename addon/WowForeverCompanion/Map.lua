@@ -10,6 +10,11 @@ local _, ns = ...
 local Map = {}
 ns.Map = Map
 
+-- Lua 5.1, which the game runs, takes ONE argument here and drops the second without a
+-- word; the two-argument form is 5.3's. Calling math.atan(dy, dx) in the game returns
+-- atan(dy), so every dash was rotated by the wrong angle. math.atan2 is the 5.1 spelling.
+local atan2 = math.atan2 or math.atan
+
 local DASHES_PER_LEG = 12
 local LOOKAHEAD = 3
 
@@ -99,7 +104,7 @@ end
 --- A dashed leg between two points on the same zone map. Each dash is its own texture,
 --- rotated to face along the line, because the API has no way to draw one.
 local function drawLeg(mapId, fromX, fromY, toX, toY)
-  local angle = math.atan((toY - fromY), (toX - fromX))
+  local angle = atan2((toY - fromY), (toX - fromX))
 
   for index = 0, DASHES_PER_LEG - 1 do
     -- Every other slot is left empty: that is what makes it dashed.
@@ -184,7 +189,7 @@ function Map.headingTo(target)
   if x == nil then return nil end
 
   local dx, dy = target.x - x, target.y - y
-  return math.atan(dx, dy), math.sqrt(dx * dx + dy * dy)
+  return atan2(dx, dy), math.sqrt(dx * dx + dy * dy)
 end
 
 function Map.toggle()

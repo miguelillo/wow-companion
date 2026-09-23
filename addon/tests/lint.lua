@@ -35,6 +35,44 @@ for _, path in ipairs(files) do
   handle:close()
 end
 
+-- Same trap, different function: math.atan takes two arguments from 5.3 on, but in the
+-- game's 5.1 the second one is dropped in silence and the answer is quietly wrong. 5.1
+-- spells it math.atan2. Neither compiler complains, so it is linted too. The arguments
+-- are nested, so this balances parentheses rather than trusting a pattern.
+local function hasTwoArguments(line, from)
+  local depth, position = 0, from
+  while position <= #line do
+    local character = line:sub(position, position)
+    if character == '(' then
+      depth = depth + 1
+    elseif character == ')' then
+      depth = depth - 1
+      if depth == 0 then return false end
+    elseif character == ',' and depth == 1 then
+      return true
+    end
+    position = position + 1
+  end
+  return false
+end
+
+for _, path in ipairs(files) do
+  local handle = assert(io.open(path, 'r'))
+  local number = 0
+  for line in handle:lines() do
+    number = number + 1
+    local at = line:find('math%\.atan%\s*%\(')
+    if at and not line:match('math%\.atan2') and not line:match('^%\s*%\-%\-') then
+      if hasTwoArguments(line, line:find('%\(', at)) then
+        bad = bad + 1
+        print(string.format('  %s:%d  two-argument math.atan -- Lua 5.1 drops the second; use math.atan2',
+          path, number))
+      end
+    end
+  end
+  handle:close()
+end
+
 -- The other half of the same lesson: the game reports a .toc line pointing at a file
 -- that is not there as "Error loading", once per line, before any of our code runs.
 local toc = assert(io.open('WowForeverCompanion/WowForeverCompanion.toc', 'r'))
