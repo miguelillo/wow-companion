@@ -68,14 +68,14 @@ function Leveling.refresh()
     return
   end
 
-  panel.title:SetText(string.format('Levelling  |cff98a59b%d\u{2013}%d|r', step.from, step.to))
+  panel.title:SetText(string.format('Levelling  |cff98a59b%d–%d|r', step.from, step.to))
   panel.body:SetText(step.action)
 
   local lines = {}
   if step.note ~= nil then lines[#lines + 1] = step.note end
   local next = upcoming(index)
   for position = 1, #next do
-    lines[#lines + 1] = '\u{2022} ' .. next[position].action
+    lines[#lines + 1] = '• ' .. next[position].action
   end
   panel.detail:SetText(table.concat(lines, '\n'))
 
@@ -118,7 +118,7 @@ function Leveling.onZoneChanged()
   local key = band.from .. '-' .. band.to
   if key ~= lastAnnouncedBand then
     lastAnnouncedBand = key
-    ns.Core.say(string.format('following you to the %d\u{2013}%d band', band.from, band.to))
+    ns.Core.say(string.format('following you to the %d–%d band', band.from, band.to))
   end
 
   Leveling.refresh()

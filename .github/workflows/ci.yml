@@ -64,14 +64,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 5.1 is the game's interpreter. 5.4 accepts escapes 5.1 silently mangles, so
+      # checking against it let a `\u{2022}` reach players' screens as `u{2022}`.
       - name: Install Lua
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends lua5.4
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends lua5.1
 
       - name: Check every module compiles
-        run: luac5.4 -p addon/WowForeverCompanion/*.lua
+        run: luac5.1 -p addon/WowForeverCompanion/*.lua addon/WowForeverCompanion/Guides/*.lua
+
+      - name: Lint escapes and the toc
+        run: cd addon && lua5.1 tests/lint.lua
 
       - name: Test the pure logic
-        run: cd addon && lua5.4 tests/run.lua
+        run: cd addon && lua5.1 tests/run.lua
 
   images:
     name: Container images

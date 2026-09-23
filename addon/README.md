@@ -19,8 +19,11 @@ pnpm run addon:export
 
 ### Optional libraries
 
-The addon works without any of these and says so rather than breaking. Drop them into
-`WowForeverCompanion/Libs/` to turn the features on:
+The addon works without any of these and says so rather than breaking. The `.toc` does
+**not** list them: a line pointing at a file we do not ship is a load error, which is
+exactly the four errors the first build threw on login. They are looked up at runtime
+instead, so install them as standalone addons, or drop them into
+`WowForeverCompanion/Libs/` and uncomment the four lines in the `.toc`:
 
 | Library | What it buys you | Without it |
 | --- | --- | --- |

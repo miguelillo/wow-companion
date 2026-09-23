@@ -103,7 +103,10 @@ automáticas, pero verlo funcionar de verdad es otra cosa.
 ### Librerías opcionales
 
 Sin ellas funciona, con avisos. Para activar todo, descarga y pon en
-`WowForeverCompanion/Libs/`:
+`WowForeverCompanion/Libs/`. Ojo: el `.toc` **no** las lista. Una línea que apunte a un
+fichero que no enviamos es un error de carga, que es justo lo que dio la primera versión
+al entrar. Se buscan en tiempo de ejecución, así que basta con instalarlas como addons
+sueltos; si prefieres meterlas en `Libs/`, descomenta las cuatro líneas del `.toc`:
 
 - **LibStub** — la necesitan las otras dos.
 - **LibDeflate** — comprime la cadena de transferencia. Sin ella la cadena es más larga,
@@ -131,4 +134,6 @@ No van incluidas porque son código de otros con sus propias licencias.
 | El addon no sale en la lista | Versión de interfaz del `.toc`; marca cargar obsoletos |
 | El addon carga pero no hay pasos | Falta `pnpm run addon:export` antes de copiar |
 | `/wfc import` dice que la cadena no es nuestra | Cópiala entera, empieza por `WCP1` |
-| Sin pines en el mapa | Falta HereBeDragons en `Libs/` |
+| Sin pines en el mapa | Falta HereBeDragons: instálala como addon suelto |
+| `Error loading ...Libs/...` al entrar | Estás en una versión anterior a la 0.1.1: bájate el zip nuevo |
+| Texto con `u{2022}` o `u{2013}` | Lo mismo: corregido en la 0.1.1 |
