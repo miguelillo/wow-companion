@@ -1,7 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PatchCard from '../components/PatchCard.astro';
-import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import {
+  localizePath,
+  sectionAlternates,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
 import { getPatches } from '../lib/collections';
 import { breadcrumbSchema } from '../lib/seo';
 
@@ -12,12 +18,12 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const patches = await getPatches(locale);
-const rssPath = locale === 'es' ? '/parches/rss.xml' : '/en/patches/rss.xml';
+const rssPath = `${sectionPath('patches', locale)}/rss.xml`;
 
 const jsonLd = [
   breadcrumbSchema(
     [
-      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.home'), path: localizePath(locale) },
       { name: t('nav.patches'), path: sectionPath('patches', locale) },
     ],
     Astro.site,

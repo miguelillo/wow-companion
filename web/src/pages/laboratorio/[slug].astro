@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CharacterPicker from '../../components/islands/CharacterPicker.tsx';
+import NextSteps from '../../components/islands/NextSteps.tsx';
+import ProgressTransfer from '../../components/islands/ProgressTransfer.tsx';
+import StepList from '../../components/islands/StepList.tsx';
+import type { Track } from '../../lib/progress/next-steps';
+import type { Step } from '../../schemas/step';
+
+/**
+ * Workbench for the progress engine, with a toy guide. It exists only while running the
+ * dev server: `getStaticPaths` returns nothing in a production build, so the page is
+ * never generated and never indexed.
+ */
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { slug: 'progreso' } }] : [];
+}
+
+const alchemy: Step[] = [
+  {
+    id: 'prof-alchemy-001',
+    from: 1,
+    to: 60,
+    action: 'Fabrica Poción de curación inferior hasta 60',
+    materials: [
+      { item: 'Peacebloom', quantity: 30 },
+      { item: 'Silverleaf', quantity: 30 },
+      { item: 'Crystal Vial', quantity: 30 },
+    ],
+    place: { zone: 'elwynn-forest', x: 41.5, y: 65.9 },
+  },
+  {
+    id: 'prof-alchemy-002',
+    from: 60,
+    to: 110,
+    action: 'Fabrica Poción de curación menor hasta 110',
+    materials: [
+      { item: 'Briarthorn', quantity: 40 },
+      { item: 'Crystal Vial', quantity: 40 },
+    ],
+    note: 'Briarthorn sale mucho en Loch Modan y en Silverpine.',
+  },
+  {
+    id: 'prof-alchemy-003',
+    from: 110,
+    to: 140,
+    action: 'Fabrica Elixir de fortaleza menor hasta 140',
+    materials: [{ item: 'Bruiseweed', quantity: 30 }],
+  },
+  {
+    id: 'prof-alchemy-004',
+    from: 140,
+    to: 185,
+    action: 'Fabrica Poción de curación hasta 185',
+    materials: [{ item: 'Mageroyal', quantity: 45 }],
+  },
+];
+
+const leveling: Step[] = [
+  { id: 'lvl-alliance-001', from: 1, to: 10, action: 'Termina la zona inicial de tu raza' },
+  {
+    id: 'lvl-alliance-002',
+    from: 10,
+    to: 20,
+    action: 'Westfall: cadena de los Defias hasta Deadmines',
+    place: { zone: 'westfall', x: 56.2, y: 47.8 },
+  },
+  { id: 'lvl-alliance-003', from: 20, to: 30, action: 'Redridge y Duskwood' },
+];
+
+const tracks: Track[] = [
+  {
+    ref: { kind: 'profession', profession: 'alchemy' },
+    label: 'Alquimia (juguete)',
+    steps: alchemy,
+    href: '/laboratorio/progreso#alchemy',
+  },
+  {
+    ref: { kind: 'leveling' },
+    label: 'Ruta de leveleo (juguete)',
+    steps: leveling,
+    href: '/laboratorio/progreso#leveling',
+  },
+];
+---
+
+<BaseLayout
+  locale="es"
+  title="Laboratorio del motor de progreso"
+  description="Banco de pruebas del motor de seguimiento, con una guía de juguete. Sólo existe en el servidor de desarrollo."
+  noindex={true}
+>
+  <div class="stack-lg">
+    <header class="stack prose">
+      <p>
+        <span class="badge">Sólo en desarrollo</span>
+      </p>
+      <h1>Laboratorio del motor de progreso</h1>
+      <p class="muted">
+        Guía de juguete para probar el marcado, el personaje activo y la transferencia antes de
+        escribir contenido real.
+      </p>
+    </header>
+
+    <section class="panel" aria-labelledby="next-title">
+      <h2 id="next-title">Tus próximos pasos</h2>
+      <NextSteps client:load locale="es" tracks={tracks} characterHref="#character-picker-title" />
+    </section>
+
+    <CharacterPicker client:load locale="es" />
+
+    <section class="stack" id="alchemy">
+      <h2>Alquimia (juguete)</h2>
+      <StepList
+        client:load
+        locale="es"
+        track={{ kind: 'profession', profession: 'alchemy' }}
+        steps={alchemy}
+      />
+    </section>
+
+    <section class="stack" id="leveling">
+      <h2>Ruta de leveleo (juguete)</h2>
+      <StepList client:load locale="es" track={{ kind: 'leveling' }} steps={leveling} />
+    </section>
+
+    <ProgressTransfer client:load locale="es" />
+  </div>
+</BaseLayout>

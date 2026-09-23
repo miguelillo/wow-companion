@@ -1,0 +1,126 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BetaBadge from '../components/BetaBadge.astro';
+import NextSteps from '../components/islands/NextSteps.tsx';
+import StepList from '../components/islands/StepList.tsx';
+import {
+  formatDate,
+  localizePath,
+  sectionPath,
+  entryPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
+import { articleSchema, breadcrumbSchema } from '../lib/seo';
+import { levelingRoutes, professionTracks } from '../lib/tracks';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'professions'>;
+  /** Path of the sibling entry in the other language, when it exists. */
+  alternates: Partial<Record<Locale, string>>;
+}
+
+const { locale, entry, alternates } = Astro.props;
+const t = useTranslations(locale);
+const { name, summary, steps, confirmed, sources, updated, translationKey, slug } = entry.data;
+
+const path = entryPath('professions', slug, locale);
+const tracks = await professionTracks(locale);
+const factionRouteTracks = await levelingRoutes(locale);
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: localizePath(locale) },
+      { name: t('nav.professions'), path: sectionPath('professions', locale) },
+      { name, path },
+    ],
+    Astro.site,
+  ),
+  articleSchema(
+    { title: entry.data.title, description: entry.data.description, path, locale, updated },
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={entry.data.title}
+  description={entry.data.description}
+  alternates={alternates}
+  jsonLd={jsonLd}
+  ogType="article"
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <p class="small">
+        <a href={sectionPath('professions', locale)}>{t('professions.backToIndex')}</a>
+      </p>
+      <h1>{name}</h1>
+      <p class="lead">{summary}</p>
+      <p class="small muted">
+        <BetaBadge locale={locale} confirmed={confirmed} />
+        <span> {t('card.updated', { date: formatDate(updated, locale) })}</span>
+      </p>
+      {!confirmed && <p class="small notice">{t('beta.notice')}</p>}
+    </header>
+
+    <!-- The personal header: what this reader should do next, on this ladder and any other. -->
+    <section class="panel" aria-labelledby="next-title">
+      <h2 id="next-title">{t('home.next.title')}</h2>
+      <NextSteps
+        client:load
+        locale={locale}
+        tracks={tracks}
+        routes={factionRouteTracks}
+        characterHref={`${localizePath(locale)}#character-picker-title`}
+      />
+    </section>
+
+    <section class="stack" aria-labelledby="ladder-title">
+      <h2 id="ladder-title">{t('professions.ladder')}</h2>
+      <StepList
+        client:load
+        locale={locale}
+        track={{ kind: 'profession', profession: translationKey }}
+        steps={steps}
+      />
+    </section>
+
+    {sources.length > 0 && (
+      <section class="stack">
+        <h2>{t('professions.sources')}</h2>
+        <ul class="small">
+          {sources.map((source) => (
+            <li>
+              <a href={source.url} rel="nofollow noopener">
+                {source.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+    font-size: var(--step-1);
+    color: var(--muted);
+  }
+
+  .notice {
+    max-width: var(--measure);
+    border-inline-start: 2px solid var(--gold-ink);
+    padding-inline-start: var(--space-3);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NextSteps from '../components/islands/NextSteps.tsx';
+import RoutePicker from '../components/islands/RoutePicker.tsx';
+import {
+  localizePath,
+  sectionAlternates,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
+import { factionRoutes } from '../lib/leveling';
+import { breadcrumbSchema } from '../lib/seo';
+import { levelingRoutes, professionTracks } from '../lib/tracks';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const routes = await factionRoutes(locale);
+const tracks = await professionTracks(locale);
+const factionRouteTracks = await levelingRoutes(locale);
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: localizePath(locale) },
+      { name: t('nav.leveling'), path: sectionPath('leveling', locale) },
+    ],
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('leveling.meta.title')}
+  description={t('leveling.meta.description')}
+  alternates={sectionAlternates('leveling')}
+  jsonLd={jsonLd}
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <h1>{t('leveling.title')}</h1>
+      <p class="muted lead">{t('leveling.lead')}</p>
+    </header>
+
+    <section class="panel" aria-labelledby="next-title">
+      <h2 id="next-title">{t('home.next.title')}</h2>
+      <NextSteps
+        client:load
+        locale={locale}
+        tracks={tracks}
+        routes={factionRouteTracks}
+        characterHref={`${localizePath(locale)}#character-picker-title`}
+      />
+    </section>
+
+    <RoutePicker client:load locale={locale} routes={routes} />
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+  }
+</style>

@@ -84,6 +84,113 @@ const es = {
   'status.realms.heading': 'Reinos',
   'status.source': 'Fuente: API de Blizzard, endpoints de realm y connected-realm.',
 
+  'progress.character.title': 'Tu personaje',
+  'progress.character.none': 'Todavía no has añadido ningún personaje.',
+  'progress.character.add': 'Añadir personaje',
+  'progress.character.name': 'Nombre',
+  'progress.character.realm': 'Reino',
+  'progress.character.class': 'Clase',
+  'progress.character.faction': 'Facción',
+  'progress.faction.alliance': 'Alianza',
+  'progress.faction.horde': 'Horda',
+  'progress.character.level': 'Nivel',
+  'progress.character.save': 'Guardar',
+  'progress.character.cancel': 'Cancelar',
+  'progress.character.remove': 'Quitar',
+  'progress.character.removeConfirm':
+    '¿Quitar a {name}? Su progreso desaparece de este navegador y no se puede deshacer.',
+  'progress.character.pick': 'Personaje activo',
+  'progress.storage.unavailable':
+    'Tu navegador no deja guardar datos, así que lo que marques durará sólo mientras esta pestaña siga abierta.',
+
+  'progress.steps.done': '{done} de {total} pasos',
+  'progress.steps.next': 'Siguiente paso',
+  'progress.steps.needCharacter': 'Añade un personaje y podrás ir marcando pasos.',
+  'progress.steps.materials': 'Materiales',
+  'progress.steps.skillLevel': 'Nivel de habilidad',
+  'progress.steps.characterLevel': 'Nivel del personaje',
+  'progress.steps.allDone': 'Guía completada. Bien hecho.',
+  'progress.steps.toggle': 'Marcar «{action}» como hecho',
+  'progress.steps.skillRange': 'Habilidad {from}–{to}',
+  'progress.steps.levelRange': 'Nivel {from}–{to}',
+
+  'progress.next.blocked': 'Te falta nivel o habilidad para esto.',
+  'progress.next.remaining': 'Quedan {count}',
+  'progress.next.noneStarted':
+    'Todavía no has empezado ninguna profesión. Abre una y te voy diciendo qué toca.',
+  'progress.next.go': 'Ir a la guía',
+
+  'progress.transfer.title': 'Llevarte el progreso',
+  'progress.transfer.lead':
+    'Genera una cadena, guárdala y pégala en otro navegador o dispositivo. No hace falta cuenta.',
+  'progress.transfer.export': 'Generar cadena',
+  'progress.transfer.copy': 'Copiar',
+  'progress.transfer.copied': 'Copiado',
+  'progress.transfer.import': 'Importar',
+  'progress.transfer.importLabel': 'Pega aquí tu cadena',
+  'progress.transfer.imported': 'Listo: tu progreso se ha fusionado con el que ya había.',
+  'progress.transfer.importFailed': 'Esa cadena no vale. Cópiala entera, empezando por WCP1.',
+  'progress.transfer.mergeNote':
+    'Importar no borra nada: se fusiona con lo que ya tienes y, si hay conflicto, gana lo marcado.',
+
+  'professions.meta.title': 'Profesiones de WoW Forever: las doce guías de 1 a 300',
+  'professions.meta.description':
+    'Las doce profesiones de World of Warcraft: Forever con su guía de subida de 1 a 300, las parejas recomendadas y qué cambia respecto a Classic.',
+  'professions.title': 'Profesiones',
+  'professions.lead':
+    'Doce profesiones, cada una con su ruta de 1 a 300 y marcable paso a paso. Elige dos principales y las tres secundarias, que no ocupan hueco.',
+  'professions.kind.gathering': 'Recolección',
+  'professions.kind.crafting': 'Producción',
+  'professions.kind.secondary': 'Secundarias',
+  'professions.pairs.title': 'Parejas que funcionan',
+  'professions.pairsWith': 'Va con',
+  'professions.whatChanged': 'Qué cambia en Forever',
+  'professions.sources': 'Fuentes',
+  'professions.ladder': 'La subida, paso a paso',
+  'professions.backToIndex': 'Todas las profesiones',
+
+  'planner.title': 'Planificador de profesiones',
+  'planner.lead': 'Dinos tu clase y qué buscas, y te decimos qué pareja coger y por qué.',
+  'planner.class': 'Clase',
+  'planner.goal': 'Qué buscas',
+  'planner.goal.gold': 'Hacer oro',
+  'planner.goal.self': 'Ser autosuficiente',
+  'planner.goal.raid': 'Preparar raids',
+  'planner.result': 'Coge',
+  'planner.and': 'y',
+  'planner.reason.gold':
+    'Dos recolecciones no cuestan nada y todo lo que saques se vende solo, porque lo necesitan los que fabrican. Es la forma más rápida de tener oro para la montura de 40. Cuando lo tengas, cambia Minería por Alquimia: los frascos y elixires de reputación nuevos son de las cosas que mejor se pagan.',
+  'planner.reason.cloth':
+    'La tela te la dan los humanoides que ya matas, así que Sastrería se alimenta sola, y en Forever además sueltas tela extra. Encantamiento se come lo que fabricas de más y te encanta tu propio equipo, que es lo caro de pagar a otro.',
+  'planner.reason.leather':
+    'Desuello te surte de lo que ya matas y Peletería te viste mientras subes, sin pasar por la casa de subastas. Es la pareja más barata de mantener de todas.',
+  'planner.reason.plate':
+    'Minería te da las barras y Herrería te hace el equipo. Además te quedas con reparar todo el equipo de golpe y con las hebillas de cinturón, que dan estadísticas a cualquiera: eso te hace hueco en cualquier grupo.',
+  'planner.reason.raid':
+    'Herboristería y Alquimia es lo que sostiene una raid: pociones, elixires y los frascos nuevos de poder de ataque. Te surtes tú y te sobra para vender. Si prefieres utilidad antes que consumibles, la alternativa es Minería con Ingeniería.',
+  'planner.note':
+    'Las secundarias (Cocina, Primeros auxilios y Pesca) no ocupan hueco: súbelas igualmente.',
+
+  'leveling.meta.title': 'Ruta de leveleo 1–60 en WoW Forever, por tramos',
+  'leveling.meta.description':
+    'La ruta completa de 1 a 60 en World of Warcraft: Forever, con filtro por facción, las zonas de cada tramo y las mazmorras que merecen la pena.',
+  'leveling.title': 'Leveleo 1–60',
+  'leveling.lead':
+    'Mueve el nivel y te decimos dónde estar. Debajo tienes la ruta entera, con el tramo actual marcado y las mazmorras de cada uno.',
+  'leveling.atLevel': 'A nivel',
+  'leveling.goTo': 'Ve a',
+  'leveling.startingZone': 'La zona inicial de tu raza',
+  'leveling.steps': 'Los pasos, marcables',
+  'leveling.backToIndex': 'Volver a la ruta',
+  'leveling.zone.range': 'Rango',
+  'leveling.zone.continent': 'Continente',
+  'leveling.zone.faction': 'Facción',
+  'leveling.zone.dungeons': 'Mazmorras cerca',
+  'leveling.zone.none': 'Ninguna al lado',
+  'leveling.zone.inRoute': 'Dónde encaja en la ruta',
+  'leveling.zone.both': 'Las dos',
+  'leveling.zones.title': 'Zonas del tramo',
+
   'patches.meta.title': 'Parches y novedades de World of Warcraft: Forever',
   'patches.meta.description':
     'Todos los cambios de World of Warcraft: Forever ordenados por fecha, resumidos en español y con enlace a la fuente oficial.',

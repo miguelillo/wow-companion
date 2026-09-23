@@ -2,7 +2,14 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { localeTags, locales, useTranslations, type Locale } from '../i18n';
+import {
+  defaultLocale,
+  sectionPath,
+  localeTags,
+  locales,
+  useTranslations,
+  type Locale,
+} from '../i18n';
 import { absoluteUrl } from '../lib/seo';
 
 interface Props {
@@ -31,8 +38,9 @@ const {
 
 const canonical = absoluteUrl(Astro.url.pathname, Astro.site);
 const t = useTranslations(locale);
-const defaultAlternate = alternates['es'];
-const rssPath = locale === 'es' ? '/parches/rss.xml' : '/en/patches/rss.xml';
+// x-default points at the language served without a prefix, whichever that is.
+const defaultAlternate = alternates[defaultLocale];
+const rssPath = `${sectionPath('patches', locale)}/rss.xml`;
 ---
 
 <!doctype html>

@@ -32,6 +32,15 @@ export const placeSchema = z.object({
   y: z.number().min(0).max(100),
 });
 
+/**
+ * How the player gets to where a step happens. The first point is where the previous
+ * step left them, the last is where the action is. Without this a route can only be
+ * drawn as a straight line between two steps, and a straight line across Desolace goes
+ * through a mountain. Optional on purpose: a step without one still draws as a line,
+ * which is what shipped before and is better than nothing.
+ */
+export const pathSchema = z.array(placeSchema).min(2);
+
 export const materialSchema = z.object({
   /** English item name. The displayed label comes from the interface dictionary. */
   item: z.string().min(1),
@@ -49,5 +58,6 @@ export const sourceSchema = z.object({
 export const isoDateTimeSchema = z.iso.datetime();
 
 export type Place = z.infer<typeof placeSchema>;
+export type Path = z.infer<typeof pathSchema>;
 export type Material = z.infer<typeof materialSchema>;
 export type Source = z.infer<typeof sourceSchema>;
