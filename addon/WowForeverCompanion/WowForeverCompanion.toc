@@ -2,7 +2,7 @@
 ## Title: WoW Companion
 ## Notes: Step-by-step levelling and profession guides, with pins on the map.
 ## Author: wow-companion
-## Version: 0.1.1
+## Version: 0.1.2
 ## SavedVariables: WowForeverCompanionDB
 ## OptionalDeps: LibStub, LibDeflate, HereBeDragons-2.0, TomTom
 ## X-Website: https://github.com/miguelillo/wow-companion
