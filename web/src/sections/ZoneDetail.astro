@@ -1,0 +1,163 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BetaBadge from '../components/BetaBadge.astro';
+import {
+  entryPath,
+  formatDate,
+  localizePath,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
+import { continentNames, dungeonName } from '../data/dungeons';
+import { routeContextFor } from '../lib/leveling';
+import { articleSchema, breadcrumbSchema } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'zones'>;
+  alternates: Partial<Record<Locale, string>>;
+}
+
+const { locale, entry, alternates } = Astro.props;
+const t = useTranslations(locale);
+const {
+  name,
+  summary,
+  faction,
+  minLevel,
+  maxLevel,
+  continent,
+  nearbyDungeons,
+  confirmed,
+  updated,
+} = entry.data;
+
+const path = entryPath('leveling', entry.data.slug, locale);
+const context = await routeContextFor(locale, entry.data.translationKey);
+
+const factionLabel =
+  faction === 'both' ? t('leveling.zone.both') : t(`progress.faction.${faction}`);
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: localizePath(locale) },
+      { name: t('nav.leveling'), path: sectionPath('leveling', locale) },
+      { name, path },
+    ],
+    Astro.site,
+  ),
+  articleSchema(
+    { title: entry.data.title, description: entry.data.description, path, locale, updated },
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={entry.data.title}
+  description={entry.data.description}
+  alternates={alternates}
+  jsonLd={jsonLd}
+  ogType="article"
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <p class="small">
+        <a href={sectionPath('leveling', locale)}>{t('leveling.backToIndex')}</a>
+      </p>
+      <h1>{name}</h1>
+      <p class="lead">{summary}</p>
+      <p class="small muted">
+        <BetaBadge locale={locale} confirmed={confirmed} />
+        <span> {t('card.updated', { date: formatDate(updated, locale) })}</span>
+      </p>
+    </header>
+
+    <section class="panel">
+      <dl class="facts">
+        <div>
+          <dt>{t('leveling.zone.range')}</dt>
+          <dd class="level">
+            {minLevel}–{maxLevel}
+          </dd>
+        </div>
+        <div>
+          <dt>{t('leveling.zone.faction')}</dt>
+          <dd>{factionLabel}</dd>
+        </div>
+        <div>
+          <dt>{t('leveling.zone.continent')}</dt>
+          <dd>{continentNames[continent]?.[locale] ?? continent}</dd>
+        </div>
+        <div>
+          <dt>{t('leveling.zone.dungeons')}</dt>
+          <dd>
+            {nearbyDungeons.length === 0
+              ? t('leveling.zone.none')
+              : nearbyDungeons.map(dungeonName).join(' · ')}
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    {context.length > 0 && (
+      <section class="stack">
+        <h2>{t('leveling.zone.inRoute')}</h2>
+        {context.map((band) => (
+          <div class="panel stack">
+            <p class="small muted">
+              {t(`progress.faction.${band.faction}`)} ·{' '}
+              {t('card.levelRange', { from: band.from, to: band.to })}
+            </p>
+            <ul>
+              {band.steps.map((step) => (
+                <li>{step.action}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+    font-size: var(--step-1);
+    color: var(--muted);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .facts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  dt {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+
+  li {
+    max-width: var(--measure);
+  }
+</style>

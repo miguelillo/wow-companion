@@ -16,6 +16,14 @@
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
+    "faction": {
+      "default": "alliance",
+      "type": "string",
+      "enum": [
+        "alliance",
+        "horde"
+      ]
+    },
     "level": {
       "type": "integer",
       "minimum": 1,
@@ -49,6 +57,24 @@
           "completedSteps"
         ]
       }
+    },
+    "leveling": {
+      "default": {
+        "completedSteps": []
+      },
+      "type": "object",
+      "properties": {
+        "completedSteps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(prof|lvl)-[a-z0-9]+(?:-[a-z0-9]+)*-\\d{3}$"
+          }
+        }
+      },
+      "required": [
+        "completedSteps"
+      ]
     },
     "updatedAt": {
       "type": "string",

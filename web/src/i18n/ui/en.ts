@@ -82,6 +82,115 @@ const en: Dictionary = {
   'status.realms.heading': 'Realms',
   'status.source': 'Source: Blizzard API, realm and connected-realm endpoints.',
 
+  'progress.character.title': 'Your character',
+  'progress.character.none': 'You have not added a character yet.',
+  'progress.character.add': 'Add character',
+  'progress.character.name': 'Name',
+  'progress.character.realm': 'Realm',
+  'progress.character.class': 'Class',
+  'progress.character.faction': 'Faction',
+  'progress.faction.alliance': 'Alliance',
+  'progress.faction.horde': 'Horde',
+  'progress.character.level': 'Level',
+  'progress.character.save': 'Save',
+  'progress.character.cancel': 'Cancel',
+  'progress.character.remove': 'Remove',
+  'progress.character.removeConfirm':
+    'Remove {name}? Their progress disappears from this browser and cannot be recovered.',
+  'progress.character.pick': 'Active character',
+  'progress.storage.unavailable':
+    'Your browser will not let us store data, so anything you tick lasts only while this tab stays open.',
+
+  'progress.steps.done': '{done} of {total} steps',
+  'progress.steps.next': 'Next step',
+  'progress.steps.needCharacter': 'Add a character and you can start ticking steps off.',
+  'progress.steps.materials': 'Materials',
+  'progress.steps.skillLevel': 'Skill level',
+  'progress.steps.characterLevel': 'Character level',
+  'progress.steps.allDone': 'Guide finished. Nicely done.',
+  'progress.steps.toggle': 'Mark “{action}” as done',
+  'progress.steps.skillRange': 'Skill {from}–{to}',
+  'progress.steps.levelRange': 'Level {from}–{to}',
+
+  'progress.next.blocked': 'You need more level or skill for this one.',
+  'progress.next.remaining': '{count} to go',
+  'progress.next.noneStarted':
+    'You have not started a profession yet. Open one and I will tell you what is next.',
+  'progress.next.go': 'Open the guide',
+
+  'progress.transfer.title': 'Take your progress with you',
+  'progress.transfer.lead':
+    'Generate a string, keep it, and paste it into another browser or device. No account needed.',
+  'progress.transfer.export': 'Generate string',
+  'progress.transfer.copy': 'Copy',
+  'progress.transfer.copied': 'Copied',
+  'progress.transfer.import': 'Import',
+  'progress.transfer.importLabel': 'Paste your string here',
+  'progress.transfer.imported': 'Done: your progress has been merged with what was already here.',
+  'progress.transfer.importFailed':
+    'That string is not one of ours. Copy all of it, starting at WCP1.',
+  'progress.transfer.mergeNote':
+    'Importing deletes nothing: it merges with what you have, and ticked wins over unticked.',
+
+  'professions.meta.title': 'WoW Forever professions: all twelve 1–300 guides',
+  'professions.meta.description':
+    'The twelve professions of World of Warcraft: Forever with their 1 to 300 route, the pairings worth taking, and what changed since Classic.',
+  'professions.title': 'Professions',
+  'professions.lead':
+    'Twelve professions, each with a 1 to 300 route you can tick off step by step. Pick two primaries, and all three secondaries, which cost you nothing.',
+  'professions.kind.gathering': 'Gathering',
+  'professions.kind.crafting': 'Crafting',
+  'professions.kind.secondary': 'Secondary',
+  'professions.pairs.title': 'Pairings that work',
+  'professions.pairsWith': 'Goes with',
+  'professions.whatChanged': 'What changed in Forever',
+  'professions.sources': 'Sources',
+  'professions.ladder': 'The climb, step by step',
+  'professions.backToIndex': 'All professions',
+
+  'planner.title': 'Profession planner',
+  'planner.lead':
+    'Tell us your class and what you are after, and we will tell you which pair to take and why.',
+  'planner.class': 'Class',
+  'planner.goal': 'What you are after',
+  'planner.goal.gold': 'Making gold',
+  'planner.goal.self': 'Being self-sufficient',
+  'planner.goal.raid': 'Getting ready to raid',
+  'planner.result': 'Take',
+  'planner.and': 'and',
+  'planner.reason.gold':
+    'Two gathering professions cost nothing and everything you pull sells itself, because the crafters need it. It is the fastest route to the gold for your level 40 mount. Once you have it, swap Mining for Alchemy: the new flasks and reputation elixirs are among the best-paying things in the game.',
+  'planner.reason.cloth':
+    'Cloth comes from the humanoids you already kill, so Tailoring feeds itself, and in Forever you pull extra cloth besides. Enchanting eats your spare crafts and enchants your own gear, which is the part that costs real money to buy.',
+  'planner.reason.leather':
+    'Skinning supplies you from what you already kill and Leatherworking gears you as you level, without a trip to the auction house. It is the cheapest pair to keep running.',
+  'planner.reason.plate':
+    'Mining gives you the bars and Blacksmithing makes the gear. You also keep repair-all and the belt buckles, which add stats for anyone: that earns you a spot in any group.',
+  'planner.reason.raid':
+    'Herbalism with Alchemy is what holds a raid together: potions, elixirs and the new attack power flasks. You supply yourself and have plenty spare to sell. If you would rather have utility than consumables, the alternative is Mining with Engineering.',
+  'planner.note':
+    'The secondaries (Cooking, First Aid and Fishing) take no slot: level them anyway.',
+
+  'leveling.meta.title': 'Levelling route 1–60 in WoW Forever, band by band',
+  'leveling.meta.description':
+    'The full 1 to 60 route in World of Warcraft: Forever, with a faction filter, the zones of every band and the dungeons worth doing.',
+  'leveling.title': 'Levelling 1–60',
+  'leveling.lead':
+    'Move the level and we will tell you where to be. The whole route sits below, with the current band picked out and the dungeons for each.',
+  'leveling.atLevel': 'At level',
+  'leveling.goTo': 'Head to',
+  'leveling.startingZone': 'Your race’s starting zone',
+  'leveling.steps': 'The steps, tickable',
+  'leveling.backToIndex': 'Back to the route',
+  'leveling.zone.range': 'Range',
+  'leveling.zone.continent': 'Continent',
+  'leveling.zone.faction': 'Faction',
+  'leveling.zone.dungeons': 'Dungeons nearby',
+  'leveling.zone.none': 'None adjacent',
+  'leveling.zone.inRoute': 'Where it sits on the route',
+  'leveling.zone.both': 'Both',
+  'leveling.zones.title': 'Zones in this band',
+
   'patches.meta.title': 'World of Warcraft: Forever patch notes and news',
   'patches.meta.description':
     'Every change in World of Warcraft: Forever by date, summarised in our own words, each one linking to its official source.',

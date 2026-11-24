@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BetaBadge from '../components/BetaBadge.astro';
+import ProfessionPlanner from '../components/islands/ProfessionPlanner.tsx';
+import {
+  localizePath,
+  entryPath,
+  sectionAlternates,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
+import { getLocalizedEntries } from '../lib/collections';
+import { professionNames } from '../lib/tracks';
+import { breadcrumbSchema } from '../lib/seo';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const entries = await getLocalizedEntries('professions', locale);
+const byName = [...entries].sort((left, right) => left.data.name.localeCompare(right.data.name));
+const names = await professionNames(locale);
+
+const kinds = ['gathering', 'crafting', 'secondary'] as const;
+
+const jsonLd = [
+  breadcrumbSchema(
+    [
+      { name: t('nav.home'), path: localizePath(locale) },
+      { name: t('nav.professions'), path: sectionPath('professions', locale) },
+    ],
+    Astro.site,
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t('professions.meta.title')}
+  description={t('professions.meta.description')}
+  alternates={sectionAlternates('professions')}
+  jsonLd={jsonLd}
+>
+  <div class="stack-lg">
+    <header class="stack">
+      <h1>{t('professions.title')}</h1>
+      <p class="muted lead">{t('professions.lead')}</p>
+    </header>
+
+    <ProfessionPlanner client:visible locale={locale} names={names} />
+
+    {kinds.map((kind) => (
+      <section class="stack">
+        <h2>{t(`professions.kind.${kind}`)}</h2>
+        <div class="grid grid-2">
+          {byName
+            .filter((entry) => entry.data.kind === kind)
+            .map((entry) => (
+              <article class="panel stack-tight">
+                <h3>
+                  <a href={entryPath('professions', entry.data.slug, locale)}>{entry.data.name}</a>
+                </h3>
+                <p class="small">{entry.data.summary}</p>
+                <p class="small muted">
+                  <BetaBadge locale={locale} confirmed={entry.data.confirmed} />
+                  {entry.data.pairsWith.length > 0 && (
+                    <span>
+                      {' '}
+                      {t('professions.pairsWith')}:{' '}
+                      {entry.data.pairsWith.map((key) => names[key] ?? key).join(', ')}
+                    </span>
+                  )}
+                </p>
+              </article>
+            ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: var(--measure);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+
+  h3 {
+    font-size: var(--step-1);
+  }
+
+  .stack-tight > * + * {
+    margin-block-start: var(--space-2);
+  }
+
+  article p {
+    max-width: var(--measure);
+  }
+</style>

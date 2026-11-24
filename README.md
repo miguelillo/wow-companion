@@ -30,7 +30,7 @@ navegador y la cabecera), `logo.svg` (cresta y nombre) y `og-default.png` (image
 | `api/`             | API .NET 8 Minimal API, PostgreSQL y EF Core                         | Fase 2: `/api/health` y `/api/realm-status` |
 | `shared/contracts` | Contrato de paso y progreso en JSON Schema, generado desde Zod       | Fase 1 ✅ |
 | `client/`          | App de escritorio .NET que lee los SavedVariables del addon          | Fase 8    |
-| `addon/`           | Addon de WoW en Lua                                                   | Fase 7    |
+| `addon/`           | Addon de WoW en Lua                                                   | Fase 7 ✅ |
 
 ## Levantar el proyecto en local
 
@@ -61,18 +61,27 @@ Postgres en `localhost:5432` para poder trabajar contra ellos sin pasar por el p
 | `pnpm check`              | Formato, lint, tipos y build: lo mismo que ejecuta CI        |
 | `pnpm lint` / `pnpm format` | ESLint y Prettier                                          |
 | `pnpm typecheck`          | `astro check` con TypeScript en modo estricto                |
+| `pnpm test`               | Pruebas del motor de progreso, con el runner de Node          |
+| `pnpm test:addon`         | Pruebas de la lógica del addon (necesita `lua5.4`)            |
+| `pnpm addon:export`       | Vuelca las guías a tablas de Lua en `addon/…/Guides/`         |
 | `pnpm contracts:export`   | Regenera `shared/contracts/*.json` desde los esquemas de Zod |
 
 ## Cómo está montado
 
 ### Rutas e idiomas
 
-El español es el idioma por defecto y va sin prefijo; el inglés vive bajo `/en/`. Los
-**slugs están traducidos** porque son contenido (`/profesiones/alquimia` ↔
-`/en/professions/alchemy`), y las versiones hermanas se enlazan con un `translationKey`
-idéntico en el frontmatter. El mapa de slugs por idioma está en `web/src/i18n/routes.ts`;
-los textos de interfaz, en `web/src/i18n/ui/`, con el español como fuente de verdad y el
-inglés tipado contra él, de modo que una clave que falte rompe el build.
+El **inglés es el idioma por defecto** y va sin prefijo; el español vive bajo `/es/`. Los
+**slugs están traducidos** porque son contenido (`/professions/alchemy` ↔
+`/es/profesiones/alquimia`), y las versiones hermanas se enlazan con un `translationKey`
+idéntico en el frontmatter. El mapa de slugs por idioma está en `web/src/i18n/routes.ts`.
+
+Los textos de interfaz viven en `web/src/i18n/ui/`, y ahí el **español sigue siendo la
+fuente de verdad**: el inglés está tipado contra él, de modo que una clave que falte rompe
+el build. Son dos cosas distintas —qué idioma se sirve sin prefijo y cuál manda en los
+tipos— y no hace falta que coincidan.
+
+Cambiar el idioma por defecto es cambiar todas las URLs. Se hizo antes de publicar nada, así
+que no costó redirecciones; hacerlo después sí las costaría.
 
 Astro deriva la URL del nombre del fichero, así que el árbol de rutas en español lleva
 nombres en español. Para que no haya dos implementaciones, cada fichero de `web/src/pages/`
@@ -88,7 +97,42 @@ Toda entrada lleva `lang`, `translationKey`, `updated` y `confirmed`. Mientras F
 en beta, `confirmed` es `false` por defecto y la ficha muestra un distintivo de «sin
 confirmar»: es más barato confirmar un dato que desmentirlo.
 
+### Seguimiento de progreso
+
+Todo vive en el navegador hasta que haya cuentas (fase 6). El progreso se guarda en
+`localStorage` bajo una sola clave, y **cada lectura y cada escritura puede fallar sin
+romper nada**: si el almacenamiento está bloqueado, lo que marques dura lo que dure la
+pestaña y se avisa de ello.
+
+La regla al fusionar es siempre la misma, tanto al importar una cadena como al iniciar
+sesión más adelante: **gana lo marcado**. Nadie pierde trabajo hecho en otro dispositivo, y
+lo peor que puede pasar es repetir un paso.
+
+La cadena de transferencia es `WCP1:` más deflate y base64, usando `CompressionStream` del
+navegador, sin dependencias. Es el mismo formato que escribirá el addon en sus
+SavedVariables. Donde no exista `CompressionStream` cae a base64 sin comprimir bajo su
+propio prefijo, y al importar se entienden los dos.
+
+Con el servidor de desarrollo hay un banco de pruebas en `/laboratorio/progreso`, con una
+guía de juguete. No se genera en el build de producción.
+
+### Un aviso sobre los datos de profesiones
+
+Las fuentes confirman que Forever **mueve los escalones de habilidad** de algunas
+profesiones: Sastrería sube unos 35 puntos antes que en Classic y Herrería unos 25,
+mientras que Alquimia e Ingeniería mantienen los rangos. Copiar una escalera de Classic
+receta a receta sería falso en la mitad de los casos, así que las guías se apoyan en lo
+que está documentado —los hitos de 150, 225 y 300, los puntos de Legado, la certificación
+y los materiales por tramo— y el detalle receta a receta se marca como provisional.
+
+Todas las fichas llevan `confirmed: false` y su aviso de beta. Se irán confirmando con los
+parches.
+
 ### Contrato con el addon
+
+Probado en las dos direcciones: una cadena generada por la web la lee el addon, y una
+generada por el addon la lee la web. Son dos implementaciones independientes (TypeScript y
+Lua) del mismo formato, así que el round trip es la única prueba que vale.
 
 `web/src/schemas/step.ts` y `web/src/schemas/progress.ts` definen el paso y el progreso una
 sola vez. `pnpm contracts:export` los vuelca a `shared/contracts/` como JSON Schema, que es
@@ -142,10 +186,10 @@ Una fase por rama, revisión antes de seguir.
    `patches`, Docker Compose y CI.
 2. **Estado en vivo** ✅ — endpoint cacheado de reinos, página `/estado` y la tarjeta de la
    portada conectada, degradando con elegancia cuando no hay dato.
-3. Motor de seguimiento local: almacenamiento, selector de personaje, lista marcable,
-   próximos pasos, exportar e importar.
-4. Profesiones: las doce guías 1–300 y el planificador.
-5. Leveleo: zonas, ruta 1–60 y selector de nivel.
+3. **Motor de seguimiento local** ✅ — almacenamiento, selector de personaje, lista
+   marcable reutilizable, próximos pasos y transferencia por cadena de texto.
+4. **Profesiones** ✅ — las doce guías 1–300, marcables, y el planificador.
+5. **Leveleo** ✅ — 29 zonas, la ruta 1–60 por facción y el selector de nivel.
    _Hasta aquí, publicado antes del 4 de noviembre de 2026._
 6. API y cuentas: Battle.net OAuth, Postgres, fusión de progreso, códigos de emparejamiento.
 7. Addon: los dos modos, avance automático, pines con HereBeDragons, `addon:export`.

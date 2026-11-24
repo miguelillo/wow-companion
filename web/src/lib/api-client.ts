@@ -1,5 +1,4 @@
-import type { z } from 'zod';
-import { realmStatusSchema, type RealmStatus } from './realm-status';
+import { parseRealmStatus, type RealmStatus } from './realm-status';
 
 const apiBase = (import.meta.env.PUBLIC_API_URL ?? '').replace(/\/$/, '');
 
@@ -10,7 +9,7 @@ const apiBase = (import.meta.env.PUBLIC_API_URL ?? '').replace(/\/$/, '');
  */
 export async function fetchFromApi<T>(
   path: string,
-  schema: z.ZodType<T>,
+  parse: (value: unknown) => T | null,
   timeoutMs = 4000,
 ): Promise<T | null> {
   const controller = new AbortController();
@@ -21,8 +20,7 @@ export async function fetchFromApi<T>(
       headers: { accept: 'application/json' },
     });
     if (!response.ok) return null;
-    const parsed = schema.safeParse(await response.json());
-    return parsed.success ? parsed.data : null;
+    return parse(await response.json());
   } catch {
     return null;
   } finally {
@@ -31,5 +29,5 @@ export async function fetchFromApi<T>(
 }
 
 export function fetchRealmStatus(): Promise<RealmStatus | null> {
-  return fetchFromApi('/api/realm-status', realmStatusSchema);
+  return fetchFromApi('/api/realm-status', parseRealmStatus);
 }

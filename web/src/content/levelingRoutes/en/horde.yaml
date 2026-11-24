@@ -1,0 +1,147 @@
+lang: en
+translationKey: horde
+slug: horde
+title: 'Levelling route 1–60 for the Horde in WoW Forever'
+description: >-
+  The full 1 to 60 route for the Horde in World of Warcraft: Forever, band by band, with the
+  dungeons worth doing in each.
+updated: 2026-09-21
+faction: horde
+sources:
+  - label: 'Blizzard — Discover What’s Next: WoW at BlizzCon 2026'
+    url: https://worldofwarcraft.blizzard.com/en-us/news/24301145
+segments:
+  - from: 1
+    to: 10
+    zones: []
+    dungeons: []
+    steps:
+      - id: lvl-horde-001
+        from: 1
+        to: 10
+        action: >-
+          Finish your race’s starting zone without skipping quests: it is the fastest band in the game
+          and it kits you out.
+      - id: lvl-horde-002
+        from: 1
+        to: 10
+        action: >-
+          Learn your two professions and all three secondaries before you leave. Cooking and First Aid
+          cost you no slot.
+  - from: 10
+    to: 20
+    zones: [silverpine-forest, the-barrens, stonetalon-mountains]
+    dungeons: [shadowfang-keep, wailing-caverns]
+    steps:
+      - id: lvl-horde-003
+        from: 10
+        to: 20
+        action: >-
+          The Barrens if you started in Kalimdor, Silverpine if you came from Tirisfal. Do not do both.
+      - id: lvl-horde-004
+        from: 10
+        to: 20
+        action: >-
+          Wailing Caverns or Shadowfang Keep in a group around 18.
+      - id: lvl-horde-005
+        from: 10
+        to: 20
+        action: >-
+          Stonetalon only if you run dry at your level.
+  - from: 20
+    to: 30
+    zones: [ashenvale, hillsbrad-foothills, thousand-needles]
+    dungeons: [razorfen-kraul]
+    steps:
+      - id: lvl-horde-006
+        from: 20
+        to: 30
+        action: >-
+          Hillsbrad pays well for the time, but it is contested: bring company if you can.
+      - id: lvl-horde-007
+        from: 20
+        to: 30
+        action: >-
+          Thousand Needles follows on from the Barrens and clears in one go.
+      - id: lvl-horde-008
+        from: 20
+        to: 30
+        action: >-
+          Razorfen Kraul in a group around 27.
+  - from: 30
+    to: 40
+    zones: [stranglethorn-vale, arathi-highlands, desolace, dustwallow-marsh, alterac-mountains]
+    dungeons: [scarlet-monastery, razorfen-downs, uldaman]
+    steps:
+      - id: lvl-horde-009
+        from: 30
+        to: 40
+        action: >-
+          Stranglethorn top to bottom: no zone in the band has more quests. When it wears you down,
+          alternate with Arathi.
+      - id: lvl-horde-010
+        from: 30
+        to: 40
+        action: >-
+          Scarlet Monastery as soon as you can form a group. Graveyard, Library and Armory beat any
+          quest for experience per hour.
+      - id: lvl-horde-011
+        from: 30
+        to: 40
+        action: >-
+          Close the band with Desolace or Dustwallow, depending on which side of the sea you are on.
+  - from: 40
+    to: 50
+    zones: [tanaris, feralas, badlands, the-hinterlands, searing-gorge]
+    dungeons: [zul-farrak, maraudon, sunken-temple]
+    steps:
+      - id: lvl-horde-012
+        from: 40
+        to: 50
+        action: >-
+          Tanaris with Gadgetzan as your base. Pick up every quest before you leave town.
+      - id: lvl-horde-013
+        from: 40
+        to: 50
+        action: >-
+          Feralas alongside: the most productive zone of the band if you are solo.
+      - id: lvl-horde-014
+        from: 40
+        to: 50
+        action: >-
+          Zul’Farrak and Sunken Temple in a group. Uldaman if your gear is behind.
+  - from: 50
+    to: 60
+    zones:
+      [
+        un-goro-crater,
+        felwood,
+        western-plaguelands,
+        eastern-plaguelands,
+        winterspring,
+        burning-steppes,
+        silithus,
+      ]
+    dungeons: [blackrock-depths, dire-maul, stratholme, scholomance, ubrs]
+    steps:
+      - id: lvl-horde-015
+        from: 50
+        to: 60
+        action: >-
+          Un’Goro first: dense quests and, with Skinning, the best leather in the game.
+      - id: lvl-horde-016
+        from: 50
+        to: 60
+        action: >-
+          Western Plaguelands, then Eastern. This is the band that leaves you ready to raid.
+      - id: lvl-horde-017
+        from: 50
+        to: 60
+        action: >-
+          Blackrock Depths in a group from 52: experience, gear, and the key to what comes next.
+      - id: lvl-horde-018
+        from: 50
+        to: 60
+        action: >-
+          Finish in Winterspring or Silithus if you are short. Stratholme and Scholomance once you hit
+          58.

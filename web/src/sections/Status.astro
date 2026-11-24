@@ -3,7 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Countdown from '../components/Countdown.astro';
 import OpenContentCard from '../components/OpenContentCard.astro';
 import RealmStatusCard from '../components/RealmStatusCard.astro';
-import { sectionAlternates, sectionPath, useTranslations, type Locale } from '../i18n';
+import {
+  localizePath,
+  sectionAlternates,
+  sectionPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
 import { breadcrumbSchema } from '../lib/seo';
 
 interface Props {
@@ -16,7 +22,7 @@ const t = useTranslations(locale);
 const jsonLd = [
   breadcrumbSchema(
     [
-      { name: t('nav.home'), path: locale === 'es' ? '/' : '/en' },
+      { name: t('nav.home'), path: localizePath(locale) },
       { name: t('nav.status'), path: sectionPath('status', locale) },
     ],
     Astro.site,

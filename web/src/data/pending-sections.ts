@@ -7,8 +7,6 @@ import type { Section } from '../i18n/routes';
  */
 export const pendingSections: readonly Section[] = [
   'start',
-  'leveling',
-  'professions',
   'gold',
   'dungeons',
   'raids',
